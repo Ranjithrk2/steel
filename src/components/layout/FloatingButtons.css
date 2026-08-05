@@ -1,0 +1,346 @@
+.floating-dock {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1200;
+
+  padding: 8px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  width: auto;
+  height: auto;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(17, 20, 23, 0.88),
+      rgba(8, 10, 12, 0.92)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  transition:
+    padding 0.3s ease,
+    gap 0.3s ease,
+    height 0.3s ease;
+}
+
+.floating-action {
+  position: relative;
+
+  width: 56px;
+  height: 56px;
+
+  padding: 0;
+
+  display: grid;
+  place-items: center;
+
+  overflow: visible;
+
+  color: #ffffff;
+
+  border: 0;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease,
+    visibility 0.35s ease,
+    box-shadow 0.35s ease,
+    filter 0.35s ease;
+}
+
+.floating-action__icon {
+  position: relative;
+  z-index: 3;
+
+  display: grid;
+  place-items: center;
+
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.floating-action:hover {
+  transform: translateY(-5px) scale(1.06);
+}
+
+.floating-action:hover .floating-action__icon {
+  transform: translateY(-1px);
+}
+
+.floating-action__tooltip {
+  position: absolute;
+  right: calc(100% + 13px);
+  top: 50%;
+
+  min-width: max-content;
+  padding: 9px 12px;
+
+  color: rgba(255, 255, 255, 0.88);
+
+  background: rgba(10, 12, 14, 0.94);
+
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.28);
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(-50%) translateX(8px);
+
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease,
+    transform 0.25s ease;
+
+  pointer-events: none;
+}
+
+.floating-action:hover .floating-action__tooltip {
+  opacity: 1;
+  visibility: visible;
+
+  transform: translateY(-50%) translateX(0);
+}
+
+/* WhatsApp */
+
+.floating-action--whatsapp {
+  background:
+    linear-gradient(
+      135deg,
+      #0f9f45 0%,
+      #25d366 58%,
+      #52e883 100%
+    );
+
+  box-shadow:
+    0 16px 34px rgba(37, 211, 102, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.floating-action--whatsapp:hover {
+  filter: brightness(1.06);
+
+  box-shadow:
+    0 22px 46px rgba(37, 211, 102, 0.34),
+    0 0 0 7px rgba(37, 211, 102, 0.08);
+}
+
+.floating-action__pulse {
+  position: absolute;
+  inset: 0;
+
+  border: 1px solid rgba(37, 211, 102, 0.6);
+  border-radius: 50%;
+
+  animation: whatsappPulse 2.2s ease-out infinite;
+}
+
+/* Scroll button */
+
+.floating-action--scroll {
+  background:
+    radial-gradient(
+      circle at 70% 25%,
+      rgba(255, 92, 42, 0.32),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #0b0d0f 0%,
+      #171b20 45%,
+      #5f0f13 100%
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+
+  opacity: 0;
+  visibility: hidden;
+
+  height: 0;
+  min-height: 0;
+  margin: 0;
+
+  transform: translateY(10px) scale(0.9);
+
+  pointer-events: none;
+}
+
+.floating-action--scroll.floating-action--visible {
+  opacity: 1;
+  visibility: visible;
+
+  width: 56px;
+  height: 56px;
+  min-height: 56px;
+
+  transform: translateY(0) scale(1);
+
+  pointer-events: auto;
+}
+
+.floating-action--scroll:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #7f0d12 0%,
+      #d71920 58%,
+      #ff5a2a 100%
+    );
+
+  box-shadow:
+    0 22px 46px rgba(215, 25, 32, 0.3),
+    0 0 0 7px rgba(215, 25, 32, 0.07);
+}
+
+/* Circular progress */
+
+.floating-action__progress {
+  position: absolute;
+  inset: -4px;
+
+  width: 64px;
+  height: 64px;
+
+  transform: rotate(-90deg);
+
+  pointer-events: none;
+}
+
+.floating-action__progress-track,
+.floating-action__progress-value {
+  fill: none;
+  stroke-width: 2;
+}
+
+.floating-action__progress-track {
+  stroke: rgba(255, 255, 255, 0.09);
+}
+
+.floating-action__progress-value {
+  stroke: #ff4c2b;
+
+  stroke-linecap: round;
+
+  stroke-dasharray: 169.65;
+  stroke-dashoffset: 169.65;
+
+  transition:
+    stroke-dashoffset 0.15s linear,
+    stroke 0.3s ease;
+}
+
+.floating-action--scroll:hover
+  .floating-action__progress-value {
+  stroke: #ffffff;
+}
+
+@keyframes whatsappPulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  75% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+@media (max-width: 760px) {
+  .floating-dock {
+    right: 14px;
+    bottom: 14px;
+
+    padding: 7px;
+    gap: 10px;
+  }
+
+  .floating-action {
+    width: 52px;
+    height: 52px;
+  }
+
+  .floating-action--scroll.floating-action--visible {
+    width: 52px;
+    height: 52px;
+    min-height: 52px;
+  }
+
+  .floating-action__progress {
+    inset: -6px;
+
+    width: 64px;
+    height: 64px;
+  }
+
+  .floating-action__tooltip {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .floating-dock {
+    right: 10px;
+    bottom: 10px;
+  }
+
+  .floating-action {
+    width: 49px;
+    height: 49px;
+  }
+
+  .floating-action--scroll.floating-action--visible {
+    width: 49px;
+    height: 49px;
+    min-height: 49px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-action,
+  .floating-action__icon,
+  .floating-action__tooltip,
+  .floating-action__progress-value,
+  .floating-dock {
+    transition: none;
+  }
+
+  .floating-action__pulse {
+    animation: none;
+  }
+}
