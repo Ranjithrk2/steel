@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   ArrowUp,
   MessageCircle,
+  Send,
 } from "lucide-react";
 
 import "./FloatingButtons.css";
@@ -45,7 +47,10 @@ function FloatingButtons() {
           : 0;
 
       setScrollProgress(progress);
-      setShowScrollButton(scrollTop > 320);
+
+      setShowScrollButton(
+        scrollTop > 320
+      );
     };
 
     handleScroll();
@@ -53,7 +58,9 @@ function FloatingButtons() {
     window.addEventListener(
       "scroll",
       handleScroll,
-      { passive: true }
+      {
+        passive: true,
+      }
     );
 
     window.addEventListener(
@@ -86,6 +93,28 @@ function FloatingButtons() {
       className="floating-dock"
       aria-label="Quick actions"
     >
+      {/* ==============================
+          ENQUIRY
+      ============================== */}
+
+      <Link
+        to="/quote"
+        className="floating-action floating-action--enquiry"
+        aria-label="Send an enquiry"
+      >
+        <span className="floating-action__icon">
+          <Send size={21} />
+        </span>
+
+        <span className="floating-action__tooltip">
+          Send Enquiry
+        </span>
+      </Link>
+
+      {/* ==============================
+          WHATSAPP
+      ============================== */}
+
       <a
         href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
         target="_blank"
@@ -103,6 +132,10 @@ function FloatingButtons() {
           Chat on WhatsApp
         </span>
       </a>
+
+      {/* ==============================
+          SCROLL TO TOP
+      ============================== */}
 
       <button
         type="button"
@@ -134,7 +167,9 @@ function FloatingButtons() {
             style={{
               strokeDashoffset:
                 169.65 -
-                (169.65 * scrollProgress) / 100,
+                (169.65 *
+                  scrollProgress) /
+                  100,
             }}
           />
         </svg>
@@ -144,7 +179,7 @@ function FloatingButtons() {
         </span>
 
         <span className="floating-action__tooltip">
-          Back to top
+          Back to Top
         </span>
       </button>
     </div>

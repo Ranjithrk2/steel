@@ -1055,3 +1055,385 @@
     width: 100%;
   }
 }
+
+
+
+/* =====================================================
+   QUOTE FORM — ENHANCED REQUIREMENT FIELDS
+   ADD THIS AT THE END OF Quote.css
+===================================================== */
+
+/* -----------------------------------------------------
+   FORM SECTION HEADERS
+----------------------------------------------------- */
+
+.quote-form__section-title {
+  position: relative;
+
+  margin:
+    13px 0 1px;
+
+  padding:
+    16px 17px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      110deg,
+      #f4f6f7 0%,
+      #eef1f3 65%,
+      #f8eeee 100%
+    );
+
+  border:
+    1px solid
+      rgba(
+        17,
+        20,
+        23,
+        0.07
+      );
+
+  border-radius: 11px;
+}
+
+.quote-form__section-title::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 4px;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      180deg,
+      #9f0f15,
+      #d71920,
+      #ff5a2a
+    );
+}
+
+.quote-form__section-title
+> span {
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+
+  place-items: center;
+
+  flex-shrink: 0;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #8b0d12,
+      #d71920 58%,
+      #ff5729
+    );
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 8px 18px
+      rgba(
+        215,
+        25,
+        32,
+        0.18
+      );
+
+  font-family:
+    "Barlow Condensed",
+    var(--font-heading);
+
+  font-size: 14px;
+
+  font-weight: 800;
+}
+
+.quote-form__section-title
+div {
+  min-width: 0;
+}
+
+.quote-form__section-title
+strong {
+  display: block;
+
+  color: #20262b;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+}
+
+.quote-form__section-title
+small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #838a90;
+
+  font-size: 9px;
+
+  line-height: 1.4;
+}
+
+/* -----------------------------------------------------
+   SELECT GROUP
+----------------------------------------------------- */
+
+.quote-form__select-group {
+  min-width: 0;
+
+  display: grid;
+
+  align-content: start;
+
+  gap: 10px;
+}
+
+.quote-form__select-group
+> label {
+  width: 100%;
+}
+
+.quote-form__select-group--other {
+  padding:
+    12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(
+        215,
+        25,
+        32,
+        0.035
+      ),
+      rgba(
+        255,
+        90,
+        42,
+        0.018
+      )
+    );
+
+  border:
+    1px solid
+      rgba(
+        215,
+        25,
+        32,
+        0.1
+      );
+
+  border-radius: 12px;
+}
+
+/* -----------------------------------------------------
+   CUSTOM OTHER FIELD
+----------------------------------------------------- */
+
+.quote-form__other-field {
+  position: relative;
+
+  width: 100%;
+
+  padding-top: 2px;
+}
+
+.quote-form__other-field
+> span {
+  color: #bd151c !important;
+}
+
+.quote-form__other-field
+input {
+  background:
+    #ffffff;
+
+  border-color:
+    rgba(
+      215,
+      25,
+      32,
+      0.22
+    );
+}
+
+.quote-form__other-field
+input:focus {
+  border-color:
+    #d71920;
+
+  box-shadow:
+    0 0 0 4px
+      rgba(
+        215,
+        25,
+        32,
+        0.08
+      );
+}
+
+/* -----------------------------------------------------
+   SELECT ARROW / APPEARANCE
+----------------------------------------------------- */
+
+.quote-form select {
+  appearance: auto;
+
+  cursor: pointer;
+}
+
+.quote-form select:hover {
+  border-color:
+    rgba(
+      215,
+      25,
+      32,
+      0.27
+    );
+}
+
+/* -----------------------------------------------------
+   HELP TEXT
+----------------------------------------------------- */
+
+.quote-form__field-help {
+  margin-top: -1px;
+
+  color: #92989d;
+
+  font-size: 8px;
+
+  font-weight: 500;
+
+  line-height: 1.45;
+}
+
+/* -----------------------------------------------------
+   INPUT PLACEHOLDERS
+----------------------------------------------------- */
+
+.quote-form input::placeholder,
+.quote-form textarea::placeholder {
+  color:
+    rgba(
+      68,
+      75,
+      81,
+      0.48
+    );
+}
+
+/* -----------------------------------------------------
+   REQUIRED OTHER FIELD ANIMATION
+----------------------------------------------------- */
+
+.quote-form__select-group--other
+.quote-form__other-field {
+  animation:
+    quoteOtherFieldReveal
+    0.28s ease both;
+}
+
+@keyframes quoteOtherFieldReveal {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+/* -----------------------------------------------------
+   SUCCESS
+----------------------------------------------------- */
+
+.quote-form__success {
+  position: relative;
+
+  overflow: hidden;
+}
+
+.quote-form__success::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 4px;
+  height: 100%;
+
+  background:
+    #24a363;
+}
+
+/* -----------------------------------------------------
+   MOBILE
+----------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .quote-form__section-title {
+    margin-top: 17px;
+
+    padding:
+      14px 13px;
+  }
+
+  .quote-form__section-title
+  > span {
+    width: 31px;
+    height: 31px;
+
+    font-size: 13px;
+  }
+
+  .quote-form__select-group--other {
+    padding: 10px;
+  }
+}
+
+/* -----------------------------------------------------
+   REDUCED MOTION
+----------------------------------------------------- */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+  .quote-form__select-group--other
+  .quote-form__other-field {
+    animation: none;
+  }
+}

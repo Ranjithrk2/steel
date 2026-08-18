@@ -2,6 +2,7 @@
   position: fixed;
   right: 24px;
   bottom: 24px;
+
   z-index: 1200;
 
   padding: 8px;
@@ -9,6 +10,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: 12px;
 
   width: auto;
@@ -21,15 +23,21 @@
       rgba(8, 10, 12, 0.92)
     );
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.1);
+
   border-radius: 999px;
 
   box-shadow:
-    0 22px 55px rgba(0, 0, 0, 0.38),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    0 22px 55px
+      rgba(0, 0, 0, 0.38),
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.06);
 
   backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  -webkit-backdrop-filter:
+    blur(18px);
 
   transition:
     padding 0.3s ease,
@@ -37,11 +45,18 @@
     height 0.3s ease;
 }
 
+/* =====================================================
+   COMMON BUTTON
+===================================================== */
+
 .floating-action {
   position: relative;
 
   width: 56px;
   height: 56px;
+
+  min-width: 56px;
+  min-height: 56px;
 
   padding: 0;
 
@@ -53,12 +68,23 @@
   color: #ffffff;
 
   border: 0;
+
   border-radius: 50%;
+
+  text-decoration: none;
 
   cursor: pointer;
 
+  flex-shrink: 0;
+
   transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.35s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
     opacity 0.35s ease,
     visibility 0.35s ease,
     box-shadow 0.35s ease,
@@ -67,50 +93,88 @@
 
 .floating-action__icon {
   position: relative;
+
   z-index: 3;
 
   display: grid;
   place-items: center;
 
   transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    transform 0.35s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      );
 }
 
 .floating-action:hover {
-  transform: translateY(-5px) scale(1.06);
+  transform:
+    translateY(-5px)
+    scale(1.06);
 }
 
-.floating-action:hover .floating-action__icon {
-  transform: translateY(-1px);
+.floating-action:hover
+.floating-action__icon {
+  transform:
+    translateY(-1px);
 }
+
+/* =====================================================
+   TOOLTIP
+===================================================== */
 
 .floating-action__tooltip {
   position: absolute;
+
   right: calc(100% + 13px);
   top: 50%;
 
   min-width: max-content;
-  padding: 9px 12px;
 
-  color: rgba(255, 255, 255, 0.88);
+  padding:
+    9px 12px;
 
-  background: rgba(10, 12, 14, 0.94);
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.9
+    );
 
-  border: 1px solid rgba(255, 255, 255, 0.09);
+  background:
+    rgba(
+      10,
+      12,
+      14,
+      0.96
+    );
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.09);
+
   border-radius: 10px;
 
   box-shadow:
-    0 14px 32px rgba(0, 0, 0, 0.28);
+    0 14px 32px
+      rgba(0, 0, 0, 0.28);
 
   font-size: 11px;
   font-weight: 700;
+
   letter-spacing: 0.04em;
+
   white-space: nowrap;
 
   opacity: 0;
   visibility: hidden;
 
-  transform: translateY(-50%) translateX(8px);
+  transform:
+    translateY(-50%)
+    translateX(8px);
 
   transition:
     opacity 0.25s ease,
@@ -120,14 +184,95 @@
   pointer-events: none;
 }
 
-.floating-action:hover .floating-action__tooltip {
+.floating-action:hover
+.floating-action__tooltip {
   opacity: 1;
   visibility: visible;
 
-  transform: translateY(-50%) translateX(0);
+  transform:
+    translateY(-50%)
+    translateX(0);
 }
 
-/* WhatsApp */
+/* =====================================================
+   ENQUIRY
+===================================================== */
+
+.floating-action--enquiry {
+  background:
+    radial-gradient(
+      circle at 72% 24%,
+      rgba(
+        255,
+        120,
+        62,
+        0.42
+      ),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #8b0d12 0%,
+      #d71920 58%,
+      #ff5729 100%
+    );
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.13);
+
+  box-shadow:
+    0 16px 34px
+      rgba(215, 25, 32, 0.27),
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.16);
+}
+
+.floating-action--enquiry::before {
+  content: "";
+
+  position: absolute;
+
+  inset: -4px;
+
+  z-index: -1;
+
+  border:
+    1px solid
+    rgba(215, 25, 32, 0.2);
+
+  border-radius: 50%;
+
+  opacity: 0;
+
+  transform: scale(0.9);
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.floating-action--enquiry:hover {
+  filter:
+    brightness(1.06);
+
+  box-shadow:
+    0 22px 46px
+      rgba(215, 25, 32, 0.36),
+    0 0 0 7px
+      rgba(215, 25, 32, 0.07);
+}
+
+.floating-action--enquiry:hover::before {
+  opacity: 1;
+
+  transform:
+    scale(1.04);
+}
+
+/* =====================================================
+   WHATSAPP
+===================================================== */
 
 .floating-action--whatsapp {
   background:
@@ -139,29 +284,44 @@
     );
 
   box-shadow:
-    0 16px 34px rgba(37, 211, 102, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    0 16px 34px
+      rgba(37, 211, 102, 0.25),
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.22);
 }
 
 .floating-action--whatsapp:hover {
-  filter: brightness(1.06);
+  filter:
+    brightness(1.06);
 
   box-shadow:
-    0 22px 46px rgba(37, 211, 102, 0.34),
-    0 0 0 7px rgba(37, 211, 102, 0.08);
+    0 22px 46px
+      rgba(37, 211, 102, 0.34),
+    0 0 0 7px
+      rgba(37, 211, 102, 0.08);
 }
 
 .floating-action__pulse {
   position: absolute;
+
   inset: 0;
 
-  border: 1px solid rgba(37, 211, 102, 0.6);
+  border:
+    1px solid
+    rgba(37, 211, 102, 0.6);
+
   border-radius: 50%;
 
-  animation: whatsappPulse 2.2s ease-out infinite;
+  animation:
+    whatsappPulse
+    2.2s ease-out infinite;
+
+  pointer-events: none;
 }
 
-/* Scroll button */
+/* =====================================================
+   SCROLL BUTTON
+===================================================== */
 
 .floating-action--scroll {
   background:
@@ -177,33 +337,50 @@
       #5f0f13 100%
     );
 
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.1);
 
   box-shadow:
-    0 16px 34px rgba(0, 0, 0, 0.32),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    0 16px 34px
+      rgba(0, 0, 0, 0.32),
+    inset 0 1px 0
+      rgba(255, 255, 255, 0.07);
 
   opacity: 0;
+
   visibility: hidden;
 
+  width: 56px;
+
   height: 0;
+
+  min-width: 56px;
   min-height: 0;
+
   margin: 0;
 
-  transform: translateY(10px) scale(0.9);
+  transform:
+    translateY(10px)
+    scale(0.9);
 
   pointer-events: none;
 }
 
 .floating-action--scroll.floating-action--visible {
   opacity: 1;
+
   visibility: visible;
 
   width: 56px;
   height: 56px;
+
+  min-width: 56px;
   min-height: 56px;
 
-  transform: translateY(0) scale(1);
+  transform:
+    translateY(0)
+    scale(1);
 
   pointer-events: auto;
 }
@@ -218,20 +395,26 @@
     );
 
   box-shadow:
-    0 22px 46px rgba(215, 25, 32, 0.3),
-    0 0 0 7px rgba(215, 25, 32, 0.07);
+    0 22px 46px
+      rgba(215, 25, 32, 0.3),
+    0 0 0 7px
+      rgba(215, 25, 32, 0.07);
 }
 
-/* Circular progress */
+/* =====================================================
+   CIRCULAR SCROLL PROGRESS
+===================================================== */
 
 .floating-action__progress {
   position: absolute;
+
   inset: -4px;
 
   width: 64px;
   height: 64px;
 
-  transform: rotate(-90deg);
+  transform:
+    rotate(-90deg);
 
   pointer-events: none;
 }
@@ -239,11 +422,18 @@
 .floating-action__progress-track,
 .floating-action__progress-value {
   fill: none;
+
   stroke-width: 2;
 }
 
 .floating-action__progress-track {
-  stroke: rgba(255, 255, 255, 0.09);
+  stroke:
+    rgba(
+      255,
+      255,
+      255,
+      0.09
+    );
 }
 
 .floating-action__progress-value {
@@ -252,34 +442,50 @@
   stroke-linecap: round;
 
   stroke-dasharray: 169.65;
+
   stroke-dashoffset: 169.65;
 
   transition:
-    stroke-dashoffset 0.15s linear,
+    stroke-dashoffset
+      0.15s linear,
     stroke 0.3s ease;
 }
 
 .floating-action--scroll:hover
-  .floating-action__progress-value {
+.floating-action__progress-value {
   stroke: #ffffff;
 }
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
 
 @keyframes whatsappPulse {
   0% {
     opacity: 0.7;
-    transform: scale(1);
+
+    transform:
+      scale(1);
   }
 
   75% {
     opacity: 0;
-    transform: scale(1.45);
+
+    transform:
+      scale(1.45);
   }
 
   100% {
     opacity: 0;
-    transform: scale(1.45);
+
+    transform:
+      scale(1.45);
   }
 }
+
+/* =====================================================
+   TABLET
+===================================================== */
 
 @media (max-width: 760px) {
   .floating-dock {
@@ -287,17 +493,29 @@
     bottom: 14px;
 
     padding: 7px;
+
     gap: 10px;
   }
 
   .floating-action {
     width: 52px;
     height: 52px;
+
+    min-width: 52px;
+    min-height: 52px;
+  }
+
+  .floating-action--scroll {
+    width: 52px;
+
+    min-width: 52px;
   }
 
   .floating-action--scroll.floating-action--visible {
     width: 52px;
     height: 52px;
+
+    min-width: 52px;
     min-height: 52px;
   }
 
@@ -313,30 +531,57 @@
   }
 }
 
+/* =====================================================
+   MOBILE
+===================================================== */
+
 @media (max-width: 420px) {
   .floating-dock {
     right: 10px;
     bottom: 10px;
+
+    padding: 6px;
+
+    gap: 8px;
   }
 
   .floating-action {
     width: 49px;
     height: 49px;
+
+    min-width: 49px;
+    min-height: 49px;
+  }
+
+  .floating-action--scroll {
+    width: 49px;
+
+    min-width: 49px;
   }
 
   .floating-action--scroll.floating-action--visible {
     width: 49px;
     height: 49px;
+
+    min-width: 49px;
     min-height: 49px;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
   .floating-action,
   .floating-action__icon,
   .floating-action__tooltip,
   .floating-action__progress-value,
-  .floating-dock {
+  .floating-dock,
+  .floating-action--enquiry::before {
     transition: none;
   }
 
