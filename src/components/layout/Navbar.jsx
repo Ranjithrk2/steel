@@ -1,33 +1,75 @@
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+
+import {
+  NavLink,
+  useNavigate,
+} from "react-router-dom";
+
 import {
   ArrowUpRight,
   Menu,
+  Search,
   X,
 } from "lucide-react";
+
+import { products } from "../../data/homeData";
 
 import "./Navbar.css";
 
 const navigationLinks = [
-  { label: "Home", path: "/" },
-  { label: "About", path: "/about" },
-  { label: "Products", path: "/products" },
-  { label: "Industries", path: "/industries" },
-  { label: "Infrastructure", path: "/infrastructure" },
-  { label: "Quality", path: "/quality" },
-  { label: "Projects", path: "/projects" },
-  { label: "Blog", path: "/blog" },
-  { label: "Contact", path: "/contact" },
+  {
+    label: "Home",
+    path: "/",
+  },
+  {
+    label: "About Us",
+    path: "/about",
+  },
+  {
+    label: "Products",
+    path: "/products",
+  },
+  {
+    label: "Contact Us",
+    path: "/contact",
+  },
 ];
 
 function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] =
+  const navigate = useNavigate();
+
+  const searchRef = useRef(null);
+
+  const [scrolled, setScrolled] =
     useState(false);
+
+  const [
+    mobileMenuOpen,
+    setMobileMenuOpen,
+  ] = useState(false);
+
+  const [
+    searchOpen,
+    setSearchOpen,
+  ] = useState(false);
+
+  const [query, setQuery] =
+    useState("");
+
+  /* =====================================================
+     SCROLL STATE
+  ===================================================== */
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 60);
+      setScrolled(
+        window.scrollY > 60
+      );
     };
 
     handleScroll();
@@ -35,7 +77,9 @@ function Navbar() {
     window.addEventListener(
       "scroll",
       handleScroll,
-      { passive: true }
+      {
+        passive: true,
+      }
     );
 
     return () => {
@@ -46,10 +90,19 @@ function Navbar() {
     };
   }, []);
 
+  /* =====================================================
+     RESPONSIVE MENU
+  ===================================================== */
+
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 1180) {
-        setMobileMenuOpen(false);
+      if (
+        window.innerWidth >
+        1000
+      ) {
+        setMobileMenuOpen(
+          false
+        );
       }
     };
 
@@ -66,35 +119,190 @@ function Navbar() {
     };
   }, []);
 
+  /* =====================================================
+     MOBILE BODY LOCK
+  ===================================================== */
+
   useEffect(() => {
     document.body.style.overflow =
-      mobileMenuOpen ? "hidden" : "";
+      mobileMenuOpen
+        ? "hidden"
+        : "";
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow =
+        "";
     };
   }, [mobileMenuOpen]);
 
-  const closeMobileMenu = () => {
+  /* =====================================================
+     CLOSE SEARCH OUTSIDE
+  ===================================================== */
+
+  useEffect(() => {
+    const handleOutsideClick = (
+      event
+    ) => {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(
+          event.target
+        )
+      ) {
+        setSearchOpen(false);
+      }
+    };
+
+    document.addEventListener(
+      "mousedown",
+      handleOutsideClick
+    );
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleOutsideClick
+      );
+    };
+  }, []);
+
+  /* =====================================================
+     ESCAPE
+  ===================================================== */
+
+  useEffect(() => {
+    const handleEscape = (
+      event
+    ) => {
+      if (
+        event.key === "Escape"
+      ) {
+        setSearchOpen(false);
+
+        setMobileMenuOpen(
+          false
+        );
+      }
+    };
+
+    window.addEventListener(
+      "keydown",
+      handleEscape
+    );
+
+    return () => {
+      window.removeEventListener(
+        "keydown",
+        handleEscape
+      );
+    };
+  }, []);
+
+  /* =====================================================
+     PRODUCT SEARCH
+  ===================================================== */
+
+  const filteredProducts =
+    useMemo(() => {
+      const term = query
+        .trim()
+        .toLowerCase();
+
+      if (!term) {
+        return products.slice(
+          0,
+          4
+        );
+      }
+
+      return products
+        .filter((product) => {
+          const content = [
+            product.name,
+            product.category,
+            product.description,
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+          return content.includes(
+            term
+          );
+        })
+        .slice(0, 6);
+    }, [query]);
+
+  const closeEverything = () => {
     setMobileMenuOpen(false);
+
+    setSearchOpen(false);
+  };
+
+  const openProduct = (
+    product
+  ) => {
+    closeEverything();
+
+    setQuery("");
+
+    if (product?.slug) {
+      navigate(
+        `/products/${product.slug}`
+      );
+
+      return;
+    }
+
+    navigate("/products");
+  };
+
+  const handleSearchSubmit = (
+    event
+  ) => {
+    event.preventDefault();
+
+    if (
+      filteredProducts.length
+    ) {
+      openProduct(
+        filteredProducts[0]
+      );
+
+      return;
+    }
+
+    navigate("/products");
+
+    closeEverything();
   };
 
   return (
     <header
       className={`site-header ${
-        scrolled ? "header-scrolled" : ""
+        scrolled
+          ? "header-scrolled"
+          : ""
       }`}
     >
       <nav
         className={`site-navbar ${
-          scrolled ? "navbar-scrolled" : ""
+          scrolled
+            ? "navbar-scrolled"
+            : ""
         }`}
         aria-label="Primary navigation"
       >
+        {/* ===============================================
+            LOGO
+        ================================================ */}
+
         <NavLink
           to="/"
           className="navbar-brand"
-          onClick={closeMobileMenu}
+          onClick={
+            closeEverything
+          }
           aria-label="Godavari Iron and Steel home"
         >
           <img
@@ -104,33 +312,224 @@ function Navbar() {
           />
         </NavLink>
 
+        {/* ===============================================
+            DESKTOP LINKS
+        ================================================ */}
+
         <ul className="navbar-links">
-          {navigationLinks.map((item) => (
-            <li key={item.path}>
-              <NavLink
-                to={item.path}
-                end={item.path === "/"}
-                className={({ isActive }) =>
-                  `navbar-link ${
-                    isActive ? "active" : ""
-                  }`
+          {navigationLinks.map(
+            (item) => (
+              <li
+                key={
+                  item.path
                 }
               >
-                {item.label}
-              </NavLink>
-            </li>
-          ))}
+                <NavLink
+                  to={
+                    item.path
+                  }
+                  end={
+                    item.path ===
+                    "/"
+                  }
+                  onClick={
+                    closeEverything
+                  }
+                  className={({
+                    isActive,
+                  }) =>
+                    `navbar-link ${
+                      isActive
+                        ? "active"
+                        : ""
+                    }`
+                  }
+                >
+                  {
+                    item.label
+                  }
+                </NavLink>
+              </li>
+            )
+          )}
         </ul>
 
+        {/* ===============================================
+            ACTIONS
+        ================================================ */}
+
         <div className="navbar-actions">
+
+          {/* SEARCH */}
+
+          <div
+            className="navbar-search"
+            ref={searchRef}
+          >
+            <button
+              type="button"
+              className={`navbar-search__trigger ${
+                searchOpen
+                  ? "is-open"
+                  : ""
+              }`}
+              aria-label={
+                searchOpen
+                  ? "Close search"
+                  : "Search products"
+              }
+              aria-expanded={
+                searchOpen
+              }
+              onClick={() => {
+                setSearchOpen(
+                  (current) =>
+                    !current
+                );
+
+                setMobileMenuOpen(
+                  false
+                );
+              }}
+            >
+              {searchOpen ? (
+                <X size={19} />
+              ) : (
+                <Search
+                  size={19}
+                />
+              )}
+            </button>
+
+            {searchOpen && (
+              <div className="navbar-search__panel">
+
+                <form
+                  className="navbar-search__form"
+                  onSubmit={
+                    handleSearchSubmit
+                  }
+                >
+                  <Search
+                    size={17}
+                  />
+
+                  <input
+                    autoFocus
+                    type="search"
+                    value={query}
+                    onChange={(
+                      event
+                    ) =>
+                      setQuery(
+                        event.target
+                          .value
+                      )
+                    }
+                    placeholder="Search TMT, coils, pipes..."
+                    aria-label="Search products"
+                  />
+                </form>
+
+                <div className="navbar-search__results">
+
+                  {filteredProducts.length >
+                  0 ? (
+                    filteredProducts.map(
+                      (
+                        product
+                      ) => (
+                        <button
+                          type="button"
+                          key={
+                            product.slug ||
+                            product.name
+                          }
+                          onClick={() =>
+                            openProduct(
+                              product
+                            )
+                          }
+                        >
+                          {product.image ? (
+                            <img
+                              src={
+                                product.image
+                              }
+                              alt=""
+                            />
+                          ) : (
+                            <span className="navbar-search__placeholder">
+                              GI
+                            </span>
+                          )}
+
+                          <span className="navbar-search__product">
+                            <strong>
+                              {
+                                product.name
+                              }
+                            </strong>
+
+                            {product.category && (
+                              <small>
+                                {
+                                  product.category
+                                }
+                              </small>
+                            )}
+                          </span>
+
+                          <ArrowUpRight
+                            size={15}
+                          />
+                        </button>
+                      )
+                    )
+                  ) : (
+                    <div className="navbar-search__empty">
+                      No products found.
+                    </div>
+                  )}
+
+                </div>
+
+                <NavLink
+                  to="/products"
+                  className="navbar-search__all"
+                  onClick={() => {
+                    closeEverything();
+                    setQuery("");
+                  }}
+                >
+                  View All Products
+
+                  <ArrowUpRight
+                    size={14}
+                  />
+                </NavLink>
+
+              </div>
+            )}
+          </div>
+
+          {/* QUOTE */}
+
           <NavLink
             to="/quote"
             className="quote-button"
-            onClick={closeMobileMenu}
+            onClick={
+              closeEverything
+            }
           >
             Get a Quote
-            <ArrowUpRight size={15} />
+
+            <ArrowUpRight
+              size={15}
+            />
           </NavLink>
+
+          {/* MOBILE BUTTON */}
 
           <button
             type="button"
@@ -140,22 +539,36 @@ function Navbar() {
                 ? "Close menu"
                 : "Open menu"
             }
-            aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-navigation"
-            onClick={() =>
-              setMobileMenuOpen(
-                (current) => !current
-              )
+            aria-expanded={
+              mobileMenuOpen
             }
+            aria-controls="mobile-navigation"
+            onClick={() => {
+              setMobileMenuOpen(
+                (current) =>
+                  !current
+              );
+
+              setSearchOpen(
+                false
+              );
+            }}
           >
             {mobileMenuOpen ? (
-              <X size={19} />
+              <X size={20} />
             ) : (
-              <Menu size={19} />
+              <Menu
+                size={20}
+              />
             )}
           </button>
+
         </div>
       </nav>
+
+      {/* =================================================
+          MOBILE MENU
+      ================================================== */}
 
       {mobileMenuOpen && (
         <div
@@ -166,30 +579,111 @@ function Navbar() {
               : ""
           }`}
         >
-          {navigationLinks.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              end={item.path === "/"}
-              onClick={closeMobileMenu}
-              className={({ isActive }) =>
-                `mobile-menu-link ${
-                  isActive ? "active" : ""
-                }`
+
+          <form
+            className="mobile-menu__search"
+            onSubmit={
+              handleSearchSubmit
+            }
+          >
+            <Search
+              size={17}
+            />
+
+            <input
+              type="search"
+              value={query}
+              onChange={(
+                event
+              ) =>
+                setQuery(
+                  event.target.value
+                )
               }
-            >
-              {item.label}
-            </NavLink>
-          ))}
+              placeholder="Search products..."
+            />
+          </form>
+
+          {query.trim() &&
+            filteredProducts.length >
+              0 && (
+              <div className="mobile-menu__results">
+                {filteredProducts.map(
+                  (
+                    product
+                  ) => (
+                    <button
+                      type="button"
+                      key={
+                        product.slug ||
+                        product.name
+                      }
+                      onClick={() =>
+                        openProduct(
+                          product
+                        )
+                      }
+                    >
+                      {
+                        product.name
+                      }
+                    </button>
+                  )
+                )}
+              </div>
+            )}
+
+          <div className="mobile-menu__links">
+
+            {navigationLinks.map(
+              (item) => (
+                <NavLink
+                  key={
+                    item.path
+                  }
+                  to={
+                    item.path
+                  }
+                  end={
+                    item.path ===
+                    "/"
+                  }
+                  onClick={
+                    closeEverything
+                  }
+                  className={({
+                    isActive,
+                  }) =>
+                    `mobile-menu-link ${
+                      isActive
+                        ? "active"
+                        : ""
+                    }`
+                  }
+                >
+                  {
+                    item.label
+                  }
+                </NavLink>
+              )
+            )}
+
+          </div>
 
           <NavLink
             to="/quote"
-            onClick={closeMobileMenu}
+            onClick={
+              closeEverything
+            }
             className="mobile-quote-button"
           >
             Get a Quote
-            <ArrowUpRight size={15} />
+
+            <ArrowUpRight
+              size={15}
+            />
           </NavLink>
+
         </div>
       )}
     </header>

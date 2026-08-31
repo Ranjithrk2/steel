@@ -1,34 +1,69 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { motion } from "motion/react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+} from "lucide-react";
 
 function FinalCTA() {
   return (
-    <section className="final-cta">
-      <div className="container final-cta__container">
+    <section className="home-final-cta">
+      <div className="home-final-cta__mesh" />
+
+      <motion.div
+        className="container home-final-cta__inner"
+        initial={{
+          opacity: 0,
+          y: 30,
+        }}
+        whileInView={{
+          opacity: 1,
+          y: 0,
+        }}
+        viewport={{
+          once: true,
+          amount: 0.3,
+        }}
+        transition={{
+          duration: 0.6,
+        }}
+      >
         <div>
-          <span>Start an Enquiry</span>
-          <h2>Have a Project? Let’s Talk Tonnage.</h2>
+          <span>
+            Need Steel for Your Next Requirement?
+          </span>
+
+          <h2>
+            Tell Us the Product, Grade,
+            Quantity and Delivery Location.
+          </h2>
+
           <p>
-            Send us your specification, grade, quantity and delivery window.
-            Our team will respond with a suitable proposal.
+            Our team will review your requirement
+            and help you with the right product and quotation.
           </p>
         </div>
 
-        <div className="final-cta__actions">
-          <Link to="/quote" className="cta-white-button">
-            Request a Quote
-            <ArrowUpRight size={18} />
-          </Link>
-
-          <Link to="/contact" className="cta-outline-button">
-            Contact Our Team
+        <div className="home-final-cta__actions">
+          <Link
+            to="/quote"
+            className="home-button home-button--light"
+          >
+            Send Enquiry
             <ArrowRight size={18} />
           </Link>
+
+          <Link
+            to="/contact"
+            className="home-button home-button--outline"
+          >
+            Contact Us
+            <ArrowUpRight size={18} />
+          </Link>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
 
 export default FinalCTA;
-

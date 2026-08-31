@@ -1,4 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowUp,
@@ -9,30 +13,38 @@ import {
 import "./FloatingButtons.css";
 
 function FloatingButtons() {
-  const [showScrollButton, setShowScrollButton] =
-    useState(false);
+  const [
+    showScrollButton,
+    setShowScrollButton,
+  ] = useState(false);
 
-  const [scrollProgress, setScrollProgress] =
-    useState(0);
+  const [
+    scrollProgress,
+    setScrollProgress,
+  ] = useState(0);
 
-  const whatsappNumber = "919876543210";
+  const whatsappNumber =
+    "919876543210";
 
-  const whatsappMessage = useMemo(
-    () =>
-      encodeURIComponent(
-        "Hello Godavari Iron & Steel, I would like to know more about your products and request a quotation."
-      ),
-    []
-  );
+  const whatsappMessage =
+    useMemo(
+      () =>
+        encodeURIComponent(
+          "Hello Godavari Iron & Steel, I would like to know more about your products and request a quotation."
+        ),
+      []
+    );
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop =
         window.scrollY ||
-        document.documentElement.scrollTop;
+        document.documentElement
+          .scrollTop;
 
       const scrollHeight =
-        document.documentElement.scrollHeight -
+        document.documentElement
+          .scrollHeight -
         window.innerHeight;
 
       const progress =
@@ -41,12 +53,16 @@ function FloatingButtons() {
               100,
               Math.max(
                 0,
-                (scrollTop / scrollHeight) * 100
+                (scrollTop /
+                  scrollHeight) *
+                  100
               )
             )
           : 0;
 
-      setScrollProgress(progress);
+      setScrollProgress(
+        progress
+      );
 
       setShowScrollButton(
         scrollTop > 320
@@ -93,27 +109,19 @@ function FloatingButtons() {
       className="floating-dock"
       aria-label="Quick actions"
     >
-      {/* ==============================
-          ENQUIRY
-      ============================== */}
-
       <Link
         to="/quote"
         className="floating-action floating-action--enquiry"
-        aria-label="Send an enquiry"
+        aria-label="Send enquiry"
       >
         <span className="floating-action__icon">
-          <Send size={21} />
+          <Send size={20} />
         </span>
 
         <span className="floating-action__tooltip">
           Send Enquiry
         </span>
       </Link>
-
-      {/* ==============================
-          WHATSAPP
-      ============================== */}
 
       <a
         href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
@@ -125,17 +133,15 @@ function FloatingButtons() {
         <span className="floating-action__pulse" />
 
         <span className="floating-action__icon">
-          <MessageCircle size={23} />
+          <MessageCircle
+            size={22}
+          />
         </span>
 
         <span className="floating-action__tooltip">
           Chat on WhatsApp
         </span>
       </a>
-
-      {/* ==============================
-          SCROLL TO TOP
-      ============================== */}
 
       <button
         type="button"
@@ -144,8 +150,15 @@ function FloatingButtons() {
             ? "floating-action--visible"
             : ""
         }`}
-        onClick={scrollToTop}
+        onClick={
+          scrollToTop
+        }
         aria-label="Scroll to top"
+        tabIndex={
+          showScrollButton
+            ? 0
+            : -1
+        }
       >
         <svg
           className="floating-action__progress"
@@ -175,7 +188,9 @@ function FloatingButtons() {
         </svg>
 
         <span className="floating-action__icon">
-          <ArrowUp size={21} />
+          <ArrowUp
+            size={21}
+          />
         </span>
 
         <span className="floating-action__tooltip">

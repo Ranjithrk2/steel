@@ -1,73 +1,104 @@
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+} from "lucide-react";
 
-import { media } from "../../../data/homeData";
-import SectionHeading from "./SectionHeading";
+import plantImage from "../../../assets/images/infrastructure/infra-plant.jpg";
 
-const features = [
-  "BIS-focused quality systems",
-  "Integrated processing facilities",
-  "Batch-level traceability",
-  "Reliable pan-India dispatch",
+const points = [
+  "Reliable steel sourcing and supply",
+  "Project-focused customer support",
+  "Quality and documentation discipline",
+  "Organised logistics and dispatch",
 ];
 
 function AboutPreview() {
   return (
-    <section className="company-introduction">
-      <div className="container company-introduction__grid">
+    <section className="home-about">
+      <div className="container home-about__grid">
         <motion.div
-          className="company-introduction__content"
-          initial={{ opacity: 0, x: -32 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.65 }}
+          className="home-about__image"
+          initial={{
+            opacity: 0,
+            x: -35,
+          }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 0.65,
+          }}
         >
-          <SectionHeading
-            label="Who We Are"
-            title="Twenty-Seven Years of Disciplined Metallurgy"
-            description="What began as a focused steel operation has grown into an integrated supply and processing partner for demanding industrial and infrastructure requirements."
+          <img
+            src={plantImage}
+            alt="Godavari Iron and Steel operations"
           />
 
-          <p className="company-introduction__text">
-            We compete on consistency, traceability and the confidence that
-            every bar, coil, pipe and section performs exactly as specified.
+          <div className="home-about__image-shade" />
+
+          <div className="home-about__badge">
+            <strong>27+</strong>
+            <span>Years in Steel</span>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="home-about__content"
+          initial={{
+            opacity: 0,
+            x: 35,
+          }}
+          whileInView={{
+            opacity: 1,
+            x: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 0.65,
+          }}
+        >
+          <div className="home-kicker">
+            <span />
+            About Godavari
+          </div>
+
+          <h2>
+            Built on Supply Discipline and Customer Trust
+          </h2>
+
+          <p>
+            Godavari Iron & Steel supports construction,
+            infrastructure, engineering and manufacturing
+            requirements through quality steel products
+            and dependable project coordination.
           </p>
 
-          <div className="company-introduction__features">
-            {features.map((item) => (
-              <div key={item}>
+          <div className="home-about__points">
+            {points.map((point) => (
+              <div key={point}>
                 <CheckCircle2 size={18} />
-                <span>{item}</span>
+                <span>{point}</span>
               </div>
             ))}
           </div>
 
-          <Link to="/about" className="primary-button">
-            About the Company
+          <Link
+            to="/about"
+            className="home-button home-button--primary"
+          >
+            About Us
             <ArrowRight size={18} />
           </Link>
-        </motion.div>
-
-        <motion.div
-          className="company-introduction__media"
-          initial={{ opacity: 0, x: 32 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.65, delay: 0.08 }}
-        >
-          <div className="company-introduction__main-image">
-            <img src={media.plantImage} alt="Godavari steel plant" />
-          </div>
-
-          <div className="company-introduction__small-image">
-            <img src={media.machineryImage} alt="Steel processing machinery" />
-          </div>
-
-          <div className="company-introduction__experience">
-            <strong>27+</strong>
-            <span>Years in the steel industry</span>
-          </div>
         </motion.div>
       </div>
     </section>
@@ -75,4 +106,3 @@ function AboutPreview() {
 }
 
 export default AboutPreview;
-

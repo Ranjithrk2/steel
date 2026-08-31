@@ -1,53 +1,73 @@
 .floating-dock {
   position: fixed;
-  right: 24px;
-  bottom: 24px;
+
+  right: 22px;
+  bottom: 22px;
 
   z-index: 1200;
+
+  width: 72px;
 
   padding: 8px;
 
   display: flex;
   flex-direction: column;
+
   align-items: center;
+  justify-content: center;
 
-  gap: 12px;
-
-  width: auto;
-  height: auto;
+  gap: 10px;
 
   background:
     linear-gradient(
       180deg,
-      rgba(17, 20, 23, 0.88),
-      rgba(8, 10, 12, 0.92)
+      rgba(
+        17,
+        20,
+        23,
+        0.92
+      ),
+      rgba(
+        8,
+        10,
+        12,
+        0.96
+      )
     );
 
   border:
     1px solid
-    rgba(255, 255, 255, 0.1);
+      rgba(
+        255,
+        255,
+        255,
+        0.1
+      );
 
   border-radius: 999px;
 
   box-shadow:
     0 22px 55px
-      rgba(0, 0, 0, 0.38),
+      rgba(
+        0,
+        0,
+        0,
+        0.38
+      ),
     inset 0 1px 0
-      rgba(255, 255, 255, 0.06);
+      rgba(
+        255,
+        255,
+        255,
+        0.06
+      );
 
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter:
+  backdrop-filter:
     blur(18px);
 
-  transition:
-    padding 0.3s ease,
-    gap 0.3s ease,
-    height 0.3s ease;
+  -webkit-backdrop-filter:
+    blur(18px);
 }
-
-/* =====================================================
-   COMMON BUTTON
-===================================================== */
 
 .floating-action {
   position: relative;
@@ -57,6 +77,9 @@
 
   min-width: 56px;
   min-height: 56px;
+
+  flex:
+    0 0 56px;
 
   padding: 0;
 
@@ -68,73 +91,49 @@
   color: #ffffff;
 
   border: 0;
-
   border-radius: 50%;
 
   text-decoration: none;
 
   cursor: pointer;
 
-  flex-shrink: 0;
-
   transition:
-    transform 0.35s
-      cubic-bezier(
-        0.22,
-        1,
-        0.36,
-        1
-      ),
-    opacity 0.35s ease,
-    visibility 0.35s ease,
-    box-shadow 0.35s ease,
-    filter 0.35s ease;
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .floating-action__icon {
   position: relative;
 
-  z-index: 3;
+  z-index: 4;
+
+  width: 100%;
+  height: 100%;
 
   display: grid;
   place-items: center;
-
-  transition:
-    transform 0.35s
-      cubic-bezier(
-        0.22,
-        1,
-        0.36,
-        1
-      );
 }
 
 .floating-action:hover {
   transform:
-    translateY(-5px)
-    scale(1.06);
+    translateY(-4px)
+    scale(1.04);
 }
-
-.floating-action:hover
-.floating-action__icon {
-  transform:
-    translateY(-1px);
-}
-
-/* =====================================================
-   TOOLTIP
-===================================================== */
 
 .floating-action__tooltip {
   position: absolute;
 
-  right: calc(100% + 13px);
   top: 50%;
+  right:
+    calc(
+      100% + 13px
+    );
 
   min-width: max-content;
 
   padding:
-    9px 12px;
+    8px 11px;
 
   color:
     rgba(
@@ -154,18 +153,17 @@
 
   border:
     1px solid
-    rgba(255, 255, 255, 0.09);
+      rgba(
+        255,
+        255,
+        255,
+        0.09
+      );
 
-  border-radius: 10px;
+  border-radius: 9px;
 
-  box-shadow:
-    0 14px 32px
-      rgba(0, 0, 0, 0.28);
-
-  font-size: 11px;
-  font-weight: 700;
-
-  letter-spacing: 0.04em;
+  font-size: 10px;
+  font-weight: 750;
 
   white-space: nowrap;
 
@@ -174,12 +172,12 @@
 
   transform:
     translateY(-50%)
-    translateX(8px);
+    translateX(7px);
 
   transition:
-    opacity 0.25s ease,
-    visibility 0.25s ease,
-    transform 0.25s ease;
+    opacity 0.22s ease,
+    visibility 0.22s ease,
+    transform 0.22s ease;
 
   pointer-events: none;
 }
@@ -194,22 +192,8 @@
     translateX(0);
 }
 
-/* =====================================================
-   ENQUIRY
-===================================================== */
-
 .floating-action--enquiry {
   background:
-    radial-gradient(
-      circle at 72% 24%,
-      rgba(
-        255,
-        120,
-        62,
-        0.42
-      ),
-      transparent 35%
-    ),
     linear-gradient(
       135deg,
       #8b0d12 0%,
@@ -217,62 +201,15 @@
       #ff5729 100%
     );
 
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.13);
-
   box-shadow:
-    0 16px 34px
-      rgba(215, 25, 32, 0.27),
-    inset 0 1px 0
-      rgba(255, 255, 255, 0.16);
+    0 14px 30px
+      rgba(
+        215,
+        25,
+        32,
+        0.28
+      );
 }
-
-.floating-action--enquiry::before {
-  content: "";
-
-  position: absolute;
-
-  inset: -4px;
-
-  z-index: -1;
-
-  border:
-    1px solid
-    rgba(215, 25, 32, 0.2);
-
-  border-radius: 50%;
-
-  opacity: 0;
-
-  transform: scale(0.9);
-
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
-}
-
-.floating-action--enquiry:hover {
-  filter:
-    brightness(1.06);
-
-  box-shadow:
-    0 22px 46px
-      rgba(215, 25, 32, 0.36),
-    0 0 0 7px
-      rgba(215, 25, 32, 0.07);
-}
-
-.floating-action--enquiry:hover::before {
-  opacity: 1;
-
-  transform:
-    scale(1.04);
-}
-
-/* =====================================================
-   WHATSAPP
-===================================================== */
 
 .floating-action--whatsapp {
   background:
@@ -284,21 +221,13 @@
     );
 
   box-shadow:
-    0 16px 34px
-      rgba(37, 211, 102, 0.25),
-    inset 0 1px 0
-      rgba(255, 255, 255, 0.22);
-}
-
-.floating-action--whatsapp:hover {
-  filter:
-    brightness(1.06);
-
-  box-shadow:
-    0 22px 46px
-      rgba(37, 211, 102, 0.34),
-    0 0 0 7px
-      rgba(37, 211, 102, 0.08);
+    0 14px 30px
+      rgba(
+        37,
+        211,
+        102,
+        0.26
+      );
 }
 
 .floating-action__pulse {
@@ -308,28 +237,42 @@
 
   border:
     1px solid
-    rgba(37, 211, 102, 0.6);
+      rgba(
+        37,
+        211,
+        102,
+        0.55
+      );
 
   border-radius: 50%;
 
   animation:
-    whatsappPulse
+    floatingWhatsappPulse
     2.2s ease-out infinite;
-
-  pointer-events: none;
 }
 
-/* =====================================================
-   SCROLL BUTTON
-===================================================== */
-
 .floating-action--scroll {
+  width: 0;
+  height: 0;
+
+  min-width: 0;
+  min-height: 0;
+
+  flex-basis: 0;
+
+  margin:
+    -10px 0 0;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transform:
+    scale(0.75);
+
+  pointer-events: none;
+
   background:
-    radial-gradient(
-      circle at 70% 25%,
-      rgba(255, 92, 42, 0.32),
-      transparent 35%
-    ),
     linear-gradient(
       135deg,
       #0b0d0f 0%,
@@ -339,82 +282,55 @@
 
   border:
     1px solid
-    rgba(255, 255, 255, 0.1);
-
-  box-shadow:
-    0 16px 34px
-      rgba(0, 0, 0, 0.32),
-    inset 0 1px 0
-      rgba(255, 255, 255, 0.07);
-
-  opacity: 0;
-
-  visibility: hidden;
-
-  width: 56px;
-
-  height: 0;
-
-  min-width: 56px;
-  min-height: 0;
-
-  margin: 0;
-
-  transform:
-    translateY(10px)
-    scale(0.9);
-
-  pointer-events: none;
+      rgba(
+        255,
+        255,
+        255,
+        0.1
+      );
 }
 
 .floating-action--scroll.floating-action--visible {
-  opacity: 1;
-
-  visibility: visible;
-
   width: 56px;
   height: 56px;
 
   min-width: 56px;
   min-height: 56px;
 
+  flex-basis: 56px;
+
+  margin: 0;
+
+  opacity: 1;
+
+  visibility: visible;
+
   transform:
-    translateY(0)
     scale(1);
 
   pointer-events: auto;
 }
 
-.floating-action--scroll:hover {
-  background:
-    linear-gradient(
-      135deg,
-      #7f0d12 0%,
-      #d71920 58%,
-      #ff5a2a 100%
-    );
-
-  box-shadow:
-    0 22px 46px
-      rgba(215, 25, 32, 0.3),
-    0 0 0 7px
-      rgba(215, 25, 32, 0.07);
-}
-
-/* =====================================================
-   CIRCULAR SCROLL PROGRESS
-===================================================== */
-
 .floating-action__progress {
   position: absolute;
 
-  inset: -4px;
+  top: 50%;
+  left: 50%;
 
   width: 64px;
   height: 64px;
 
   transform:
+    translate(
+      -50%,
+      -50%
+    )
     rotate(-90deg);
+
+  transform-origin:
+    50% 50%;
+
+  overflow: visible;
 
   pointer-events: none;
 }
@@ -432,7 +348,7 @@
       255,
       255,
       255,
-      0.09
+      0.1
     );
 }
 
@@ -441,104 +357,42 @@
 
   stroke-linecap: round;
 
-  stroke-dasharray: 169.65;
+  stroke-dasharray:
+    169.65;
 
-  stroke-dashoffset: 169.65;
+  stroke-dashoffset:
+    169.65;
 
   transition:
     stroke-dashoffset
-      0.15s linear,
-    stroke 0.3s ease;
+    0.14s linear;
 }
 
-.floating-action--scroll:hover
-.floating-action__progress-value {
-  stroke: #ffffff;
-}
-
-/* =====================================================
-   ANIMATIONS
-===================================================== */
-
-@keyframes whatsappPulse {
+@keyframes floatingWhatsappPulse {
   0% {
-    opacity: 0.7;
+    opacity: 0.65;
 
     transform:
       scale(1);
   }
 
-  75% {
-    opacity: 0;
-
-    transform:
-      scale(1.45);
-  }
-
+  75%,
   100% {
     opacity: 0;
 
     transform:
-      scale(1.45);
+      scale(1.42);
   }
 }
 
-/* =====================================================
-   TABLET
-===================================================== */
-
-@media (max-width: 760px) {
-  .floating-dock {
-    right: 14px;
-    bottom: 14px;
-
-    padding: 7px;
-
-    gap: 10px;
-  }
-
-  .floating-action {
-    width: 52px;
-    height: 52px;
-
-    min-width: 52px;
-    min-height: 52px;
-  }
-
-  .floating-action--scroll {
-    width: 52px;
-
-    min-width: 52px;
-  }
-
-  .floating-action--scroll.floating-action--visible {
-    width: 52px;
-    height: 52px;
-
-    min-width: 52px;
-    min-height: 52px;
-  }
-
-  .floating-action__progress {
-    inset: -6px;
-
-    width: 64px;
-    height: 64px;
-  }
-
-  .floating-action__tooltip {
-    display: none;
-  }
-}
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 420px) {
+@media (
+  max-width: 760px
+) {
   .floating-dock {
     right: 10px;
     bottom: 10px;
+
+    width: 62px;
 
     padding: 6px;
 
@@ -546,42 +400,57 @@
   }
 
   .floating-action {
-    width: 49px;
-    height: 49px;
+    width: 50px;
+    height: 50px;
 
-    min-width: 49px;
-    min-height: 49px;
+    min-width: 50px;
+    min-height: 50px;
+
+    flex-basis: 50px;
   }
 
   .floating-action--scroll {
-    width: 49px;
+    width: 0;
+    height: 0;
 
-    min-width: 49px;
+    min-width: 0;
+    min-height: 0;
+
+    flex-basis: 0;
+
+    margin:
+      -8px 0 0;
   }
 
   .floating-action--scroll.floating-action--visible {
-    width: 49px;
-    height: 49px;
+    width: 50px;
+    height: 50px;
 
-    min-width: 49px;
-    min-height: 49px;
+    min-width: 50px;
+    min-height: 50px;
+
+    flex-basis: 50px;
+
+    margin: 0;
+  }
+
+  .floating-action__progress {
+    width: 58px;
+    height: 58px;
+  }
+
+  .floating-action__tooltip {
+    display: none;
   }
 }
-
-/* =====================================================
-   REDUCED MOTION
-===================================================== */
 
 @media (
   prefers-reduced-motion:
   reduce
 ) {
   .floating-action,
-  .floating-action__icon,
-  .floating-action__tooltip,
   .floating-action__progress-value,
-  .floating-dock,
-  .floating-action--enquiry::before {
+  .floating-action__tooltip {
     transition: none;
   }
 
