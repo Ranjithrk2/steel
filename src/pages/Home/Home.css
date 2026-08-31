@@ -2293,14 +2293,254 @@
       72px 0;
   }
 
-  .home-products__grid,
-  .home-why__grid,
-  .industries-section__grid {
-    grid-template-columns: 1fr;
+  /* =====================================================
+     HOME PRODUCTS — MOBILE ECOMMERCE GRID
+     Keep 2 products per row on phones
+  ===================================================== */
+
+  .home-products {
+    min-height: auto;
+
+    padding:
+      58px 0
+      62px;
+  }
+
+  .home-products__grid {
+    margin-top: 24px;
+
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+
+    gap:
+      10px 9px;
+
+    perspective: none;
   }
 
   .home-product-card {
-    height: 315px;
+    height: auto;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    box-shadow:
+      0 10px 24px
+      rgba(17, 20, 23, 0.08);
+
+    transform-style: flat;
+  }
+
+  .home-product-card__media {
+    position: relative;
+    inset: auto;
+
+    width: 100%;
+
+    aspect-ratio:
+      1 / 0.86;
+
+    display: block;
+
+    overflow: hidden;
+
+    background: #dfe3e6;
+  }
+
+  .home-product-card__media img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transform: scale(1.02);
+  }
+
+  .home-product-card__shade {
+    position: absolute;
+    inset: 0;
+
+    background:
+      linear-gradient(
+        to top,
+        rgba(6, 8, 10, 0.5),
+        transparent 56%
+      );
+  }
+
+  .home-product-card__category {
+    position: absolute;
+
+    left: 6px;
+    bottom: 6px;
+
+    z-index: 3;
+
+    max-width:
+      calc(100% - 43px);
+
+    padding:
+      5px 7px;
+
+    overflow: hidden;
+
+    color: #ffffff;
+
+    background:
+      rgba(7, 9, 11, 0.8);
+
+    border:
+      1px solid
+      rgba(255, 255, 255, 0.14);
+
+    border-radius: 999px;
+
+    font-size: 6.5px;
+    font-weight: 800;
+
+    letter-spacing: 0.06em;
+
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+
+    white-space: nowrap;
+  }
+
+  .home-product-card__arrow {
+    position: absolute;
+
+    right: 6px;
+    bottom: 6px;
+
+    z-index: 3;
+
+    width: 27px;
+    height: 27px;
+
+    display: grid;
+    place-items: center;
+
+    color: #ffffff;
+
+    background:
+      linear-gradient(
+        135deg,
+        #8b0d12,
+        #d71920 58%,
+        #ff5a2a
+      );
+
+    border-radius: 50%;
+
+    box-shadow:
+      0 8px 18px
+      rgba(215, 25, 32, 0.24);
+  }
+
+  .home-product-card__content {
+    position: relative;
+
+    z-index: 2;
+
+    right: auto;
+    bottom: auto;
+    left: auto;
+
+    flex: 1;
+
+    padding:
+      11px 10px
+      11px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #ffffff;
+  }
+
+  .home-product-card h3 {
+    min-height: 39px;
+
+    margin: 0;
+
+    color: #161a1d;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    line-height: 1.05;
+
+    display: -webkit-box;
+
+    overflow: hidden;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    text-transform: uppercase;
+  }
+
+  .home-product-card__content p {
+    margin-top: 7px;
+
+    color: #6e767c;
+
+    font-size: 9px;
+
+    line-height: 1.45;
+
+    display: -webkit-box;
+
+    overflow: hidden;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .home-product-card__link,
+  .home-product-card__content > a {
+    width: 100%;
+
+    min-height: 30px;
+
+    margin-top: auto;
+    padding-top: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 6px;
+
+    color: #bd1118;
+
+    border-top:
+      1px solid
+      rgba(17, 20, 23, 0.08);
+
+    font-size: 7.5px;
+    font-weight: 800;
+
+    letter-spacing: 0.06em;
+
+    text-transform: uppercase;
+  }
+
+  .home-why__grid,
+  .industries-section__grid {
+    grid-template-columns: 1fr;
   }
 
   .home-about__grid {
@@ -2380,6 +2620,34 @@
 
   .home-about__image {
     height: 320px;
+  }
+
+  /* Home products stay 2-per-row even on very small phones */
+
+  .home-products__grid {
+    gap:
+      8px 7px;
+  }
+
+  .home-product-card__content {
+    padding: 9px;
+  }
+
+  .home-product-card h3 {
+    min-height: 37px;
+
+    font-size: 15px;
+  }
+
+  .home-product-card__content p {
+    font-size: 8.5px;
+  }
+
+  .home-product-card__link,
+  .home-product-card__content > a {
+    min-height: 28px;
+
+    font-size: 7px;
   }
 }
 
