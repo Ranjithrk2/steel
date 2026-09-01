@@ -1,47 +1,50 @@
-import { useRef } from "react";
 import { Link } from "react-router-dom";
-import {
-  motion,
-  useScroll,
-  useTransform,
-} from "motion/react";
+import { motion } from "motion/react";
+
 import {
   ArrowRight,
   ArrowUpRight,
 } from "lucide-react";
 
-import { products } from "../../../data/homeData";
+import {
+  products as catalogueProducts,
+} from "../../../data/products";
 
 function ProductCatalogue() {
-  const sectionRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const gridY = useTransform(
-    scrollYProgress,
-    [0, 0.45, 1],
-    [65, 0, -40]
-  );
-
-  const visibleProducts = products.slice(0, 4);
+  const visibleProducts =
+    catalogueProducts.slice(0, 10);
 
   return (
-    <section
-      ref={sectionRef}
-      className="home-products"
-    >
-      <div className="home-products__ambient" />
+    <section className="home-products">
+      <div
+        className="home-products__ambient"
+        aria-hidden="true"
+      />
 
       <div className="container home-products__container">
+
+        {/* =========================================
+            SECTION HEADING
+        ========================================= */}
+
         <motion.div
           className="home-section-head"
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.55 }}
+          initial={{
+            opacity: 0,
+            y: 16,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.25,
+          }}
+          transition={{
+            duration: 0.45,
+            ease: [0.22, 1, 0.36, 1],
+          }}
         >
           <div>
             <div className="home-kicker">
@@ -55,7 +58,8 @@ function ProductCatalogue() {
 
             <p>
               A focused catalogue of high-demand steel products
-              for construction, infrastructure, fabrication and industry.
+              for construction, infrastructure, fabrication
+              and industry.
             </p>
           </div>
 
@@ -68,61 +72,149 @@ function ProductCatalogue() {
           </Link>
         </motion.div>
 
-        <motion.div
-          className="home-products__grid"
-          style={{ y: gridY }}
-        >
-          {visibleProducts.map((product, index) => (
-            <motion.article
-              key={product.slug}
-              className="home-product-card"
-              initial={{
-                opacity: 0,
-                y: 40,
-                rotateX: 5,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-                rotateX: 0,
-              }}
-              viewport={{
-                once: true,
-                amount: 0.2,
-              }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.07,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <div className="home-product-card__media">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                />
-              </div>
+        {/* =========================================
+            PRODUCT GRID
+        ========================================= */}
 
-              <div className="home-product-card__shade" />
+        <div className="home-products__grid">
+          {visibleProducts.map(
+            (product, index) => (
+              <motion.article
+                key={
+                  product.id ||
+                  product.slug
+                }
+                className="home-product-card"
 
-              <div className="home-product-card__index">
-                {String(index + 1).padStart(2, "0")}
-              </div>
+                initial={{
+                  opacity: 0,
+                  y: 18,
+                }}
 
-              <div className="home-product-card__content">
-                <span>{product.category}</span>
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
 
-                <h3>{product.name}</h3>
+                viewport={{
+                  once: true,
+                  amount: 0.12,
+                }}
+
+                transition={{
+                  duration: 0.42,
+
+                  delay:
+                    (index % 5) * 0.045,
+
+                  ease: [
+                    0.22,
+                    1,
+                    0.36,
+                    1,
+                  ],
+                }}
+              >
+                {/* PRODUCT IMAGE */}
 
                 <Link
                   to={`/products/${product.slug}`}
+                  className="home-product-card__media"
+                  aria-label={`View ${product.name}`}
                 >
-                  View Product
-                  <ArrowUpRight size={16} />
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    loading={
+                      index < 5
+                        ? "eager"
+                        : "lazy"
+                    }
+                  />
                 </Link>
-              </div>
-            </motion.article>
-          ))}
+
+                {/* IMAGE SHADE */}
+
+                <div
+                  className="home-product-card__shade"
+                  aria-hidden="true"
+                />
+
+                {/* PRODUCT NUMBER */}
+
+                <div className="home-product-card__index">
+                  {String(
+                    index + 1
+                  ).padStart(
+                    2,
+                    "0"
+                  )}
+                </div>
+
+                {/* PRODUCT CONTENT */}
+
+                <div className="home-product-card__content">
+                  <span>
+                    {product.category}
+                  </span>
+
+                  <h3>
+                    {product.name}
+                  </h3>
+
+                  <Link
+                    to={`/products/${product.slug}`}
+                  >
+                    View Product
+
+                    <ArrowUpRight
+                      size={15}
+                    />
+                  </Link>
+                </div>
+              </motion.article>
+            )
+          )}
+        </div>
+
+        {/* =========================================
+            BOTTOM
+        ========================================= */}
+
+        <motion.div
+          className="home-products__footer"
+          initial={{
+            opacity: 0,
+          }}
+          whileInView={{
+            opacity: 1,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.4,
+          }}
+          transition={{
+            duration: 0.4,
+          }}
+        >
+          <span>
+            Showing{" "}
+            {visibleProducts.length}
+            {" "}of{" "}
+            {catalogueProducts.length}
+            {" "}products
+          </span>
+
+          <Link
+            to="/products"
+            className="home-text-link"
+          >
+            Explore Complete Catalogue
+
+            <ArrowRight
+              size={16}
+            />
+          </Link>
         </motion.div>
       </div>
     </section>

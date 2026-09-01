@@ -2678,13 +2678,20 @@
 
   .founder-profile {
     grid-template-columns: 1fr;
-    gap: 35px;
+    gap: 28px;
     padding: 42px 35px 50px;
   }
 
+  /* Mobile/tablet order:
+     Founder image first, information second */
   .founder-profile__visual {
-    grid-row: 2;
+    grid-row: 1;
     min-height: 360px;
+    margin-bottom: 4px;
+  }
+
+  .founder-profile__content {
+    grid-row: 2;
   }
 
   .founder-profile__circle-outer {
@@ -2763,6 +2770,12 @@
 
   .founder-profile__visual {
     min-height: 320px;
+    width: 100%;
+    margin: 0 auto 2px;
+  }
+
+  .founder-profile__content {
+    width: 100%;
   }
 
   .founder-profile__circle-outer {

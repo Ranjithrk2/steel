@@ -12,10 +12,9 @@ import {
   Zap,
 } from "lucide-react";
 
-import tmtImage from "../assets/images/products/prod-tmt.jpg";
-import coilsImage from "../assets/images/products/prod-coils.jpg";
-import pipesImage from "../assets/images/products/prod-pipes.jpg";
-import structuralImage from "../assets/images/products/prod-structural.jpg";
+import {
+  products as catalogueProducts,
+} from "./products";
 
 import plantImage from "../assets/images/infrastructure/infra-plant.jpg";
 import machineryImage from "../assets/images/infrastructure/infra-machinery.jpg";
@@ -25,6 +24,10 @@ import qualityImage from "../assets/images/quality/quality-lab.jpg";
 
 import bridgeImage from "../assets/images/projects/project-bridge.jpg";
 import constructionImage from "../assets/images/projects/project-construction.jpg";
+
+/* =========================================================
+   STATISTICS
+========================================================= */
 
 export const statistics = [
   {
@@ -49,40 +52,19 @@ export const statistics = [
   },
 ];
 
-export const products = [
-  {
-    name: "TMT Reinforcement Bars",
-    category: "Long Products",
-    description:
-      "High-strength thermo-mechanically treated rebar with superior bendability and earthquake resistance.",
-    image: tmtImage,
-    slug: "tmt-reinforcement-bars",
-  },
-  {
-    name: "Hot & Cold Rolled Coils",
-    category: "Flat Products",
-    description:
-      "Precision-gauge HR and CR coils with consistent metallurgy for forming, stamping and fabrication.",
-    image: coilsImage,
-    slug: "hot-cold-rolled-coils",
-  },
-  {
-    name: "MS Pipes & Hollow Sections",
-    category: "Tubular",
-    description:
-      "ERW round pipes, square and rectangular hollow sections engineered for structural and fluid-duty use.",
-    image: pipesImage,
-    slug: "ms-pipes-hollow-sections",
-  },
-  {
-    name: "Structural Steel Sections",
-    category: "Structurals",
-    description:
-      "Beams, channels, angles and plates for heavy structural frameworks and fabrication shops.",
-    image: structuralImage,
-    slug: "structural-steel-sections",
-  },
-];
+/* =========================================================
+   HOME PRODUCTS
+
+   Main products.js = 15 products
+   Home page = first 10 products
+========================================================= */
+
+export const products =
+  catalogueProducts.slice(0, 10);
+
+/* =========================================================
+   INDUSTRIES
+========================================================= */
 
 export const industries = [
   {
@@ -123,6 +105,10 @@ export const industries = [
   },
 ];
 
+/* =========================================================
+   TRUSTED INDUSTRIES
+========================================================= */
+
 export const trustedIndustries = [
   "Construction Companies",
   "Infrastructure Developers",
@@ -135,6 +121,10 @@ export const trustedIndustries = [
   "Warehouse Developers",
   "Government Contractors",
 ];
+
+/* =========================================================
+   INFRASTRUCTURE
+========================================================= */
 
 export const infrastructureItems = [
   {
@@ -159,6 +149,10 @@ export const infrastructureItems = [
     icon: Warehouse,
   },
 ];
+
+/* =========================================================
+   ADVANTAGES
+========================================================= */
 
 export const advantages = [
   {
@@ -199,6 +193,10 @@ export const advantages = [
   },
 ];
 
+/* =========================================================
+   PROCESS
+========================================================= */
+
 export const processSteps = [
   {
     number: "01",
@@ -232,6 +230,10 @@ export const processSteps = [
   },
 ];
 
+/* =========================================================
+   QUALITY
+========================================================= */
+
 export const qualityPoints = [
   "Chemical composition analysis",
   "Dimensional inspection",
@@ -240,6 +242,10 @@ export const qualityPoints = [
   "Batch-level traceability",
   "Quality documentation",
 ];
+
+/* =========================================================
+   PROJECTS
+========================================================= */
 
 export const projects = [
   {
@@ -260,47 +266,65 @@ export const projects = [
   },
 ];
 
+/* =========================================================
+   TESTIMONIALS
+========================================================= */
+
 export const testimonials = [
   {
     review:
       "Godavari Iron & Steel has consistently supported our projects with dependable material quality and timely delivery.",
     name: "Rajesh Kumar",
-    role: "Project Director, Infrastructure Company",
+    role:
+      "Project Director, Infrastructure Company",
   },
   {
     review:
       "Their team understands technical requirements clearly and provides reliable steel products for every project.",
     name: "Pradeep Reddy",
-    role: "Managing Director, Construction Group",
+    role:
+      "Managing Director, Construction Group",
   },
   {
     review:
       "Professional coordination, competitive pricing and consistent quality make them a valuable supply partner.",
     name: "Arun Sharma",
-    role: "Purchase Head, Engineering Company",
+    role:
+      "Purchase Head, Engineering Company",
   },
 ];
 
+/* =========================================================
+   BLOG
+========================================================= */
+
 export const blogPosts = [
   {
-    title: "How to Select the Right TMT Steel Grade",
+    title:
+      "How to Select the Right TMT Steel Grade",
     category: "Product Guide",
     date: "August 02, 2026",
-    image: tmtImage,
+    image: catalogueProducts[0]?.image,
   },
   {
-    title: "Why Quality Testing Matters in Structural Steel",
+    title:
+      "Why Quality Testing Matters in Structural Steel",
     category: "Quality",
     date: "July 24, 2026",
     image: qualityImage,
   },
   {
-    title: "Steel's Role in Modern Infrastructure Development",
+    title:
+      "Steel's Role in Modern Infrastructure Development",
     category: "Industry",
     date: "July 15, 2026",
     image: bridgeImage,
   },
 ];
+
+/* =========================================================
+   MEDIA
+========================================================= */
 
 export const media = {
   plantImage,

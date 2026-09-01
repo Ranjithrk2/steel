@@ -5,9 +5,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Building2,
-  Check,
   CheckCircle2,
-  Download,
   Factory,
   FileCheck2,
   Gauge,
@@ -115,7 +113,6 @@ const qualityChecks = [
 
 function ProductDetails() {
   const { slug } = useParams();
-
   const product = getProductBySlug(slug);
   const relatedProducts = getRelatedProducts(slug, 3);
 
@@ -123,72 +120,36 @@ function ProductDetails() {
     return <ProductNotFound />;
   }
 
-  const grades = Array.isArray(product.grades)
-    ? product.grades
-    : [];
-
-  const sizes = Array.isArray(product.sizes)
-    ? product.sizes
-    : [];
-
-  const benefits = Array.isArray(product.benefits)
-    ? product.benefits
-    : [];
-
+  const grades = Array.isArray(product.grades) ? product.grades : [];
+  const sizes = Array.isArray(product.sizes) ? product.sizes : [];
+  const benefits = Array.isArray(product.benefits) ? product.benefits : [];
   const applications = Array.isArray(product.applications)
     ? product.applications
     : [];
-
   const specifications = Array.isArray(product.specifications)
     ? product.specifications
     : [];
 
   return (
     <main className="product-details-page">
-      <ProductHero
-        product={product}
-        grades={grades}
-        sizes={sizes}
-      />
-
-      <ProductOverview
-        product={product}
-        benefits={benefits}
-      />
-
+      <ProductHero product={product} grades={grades} sizes={sizes} />
+      <ProductOverview product={product} benefits={benefits} />
       <ProductSpecifications
         specifications={specifications}
         grades={grades}
         sizes={sizes}
       />
-
-      <AvailableOptions
-        grades={grades}
-        sizes={sizes}
-      />
-
-      <ProductApplications
-        applications={applications}
-      />
-
+      <AvailableOptions grades={grades} sizes={sizes} />
+      <ProductApplications applications={applications} />
       <ManufacturingProcess />
-
       <QualityAssurance />
-
-      <RelatedProducts
-        products={relatedProducts}
-      />
-
+      <RelatedProducts products={relatedProducts} />
       <ProductCTA product={product} />
     </main>
   );
 }
 
-function ProductHero({
-  product,
-  grades,
-  sizes,
-}) {
+function ProductHero({ product, grades, sizes }) {
   return (
     <section className="product-details-hero">
       <div className="product-details-hero__ambient" />
@@ -200,11 +161,7 @@ function ProductHero({
         >
           <Link to="/">Home</Link>
           <span>/</span>
-
-          <Link to="/products">
-            Products
-          </Link>
-
+          <Link to="/products">Products</Link>
           <span>/</span>
           <strong>{product.shortName || product.name}</strong>
         </nav>
@@ -212,14 +169,8 @@ function ProductHero({
         <div className="product-details-hero__grid">
           <motion.div
             className="product-details-hero__content"
-            initial={{
-              opacity: 0,
-              x: -30,
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-            }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{
               duration: 0.7,
               ease: [0.22, 1, 0.36, 1],
@@ -231,15 +182,11 @@ function ProductHero({
             </div>
 
             <h1>{product.name}</h1>
-
-            <p>
-              {product.shortDescription}
-            </p>
+            <p>{product.shortDescription}</p>
 
             <div className="product-details-hero__quick-info">
               <div>
                 <span>Available Grades</span>
-
                 <strong>
                   {grades.length > 0
                     ? `${grades.length}+ Options`
@@ -249,7 +196,6 @@ function ProductHero({
 
               <div>
                 <span>Available Sizes</span>
-
                 <strong>
                   {sizes.length > 0
                     ? `${sizes.length}+ Options`
@@ -284,14 +230,8 @@ function ProductHero({
 
           <motion.div
             className="product-details-hero__visual"
-            initial={{
-              opacity: 0,
-              x: 30,
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-            }}
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{
               duration: 0.7,
               delay: 0.08,
@@ -308,7 +248,6 @@ function ProductHero({
 
               <div className="product-details-hero__image-caption">
                 <span>Godavari Iron &amp; Steel</span>
-
                 <strong>
                   Reliable Material for Demanding Projects
                 </strong>
@@ -317,13 +256,10 @@ function ProductHero({
 
             <div className="product-details-hero__grade-card">
               <ShieldCheck size={25} />
-
               <div>
                 <span>Available Grades</span>
-
                 <strong>
-                  {grades.slice(0, 3).join(" · ") ||
-                    "Project Grade"}
+                  {grades.slice(0, 3).join(" · ") || "Project Grade"}
                 </strong>
               </div>
             </div>
@@ -338,30 +274,16 @@ function ProductHero({
   );
 }
 
-function ProductOverview({
-  product,
-  benefits,
-}) {
+function ProductOverview({ product, benefits }) {
   return (
     <section className="product-overview">
       <div className="container product-overview__grid">
         <motion.div
           className="product-overview__media"
-          initial={{
-            opacity: 0,
-            x: -30,
-          }}
-          whileInView={{
-            opacity: 1,
-            x: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-          transition={{
-            duration: 0.65,
-          }}
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65 }}
         >
           <div className="product-overview__main-image">
             <img
@@ -379,7 +301,6 @@ function ProductOverview({
 
           <div className="product-overview__badge">
             <Factory size={24} />
-
             <div>
               <strong>Reliable Supply</strong>
               <span>Project-focused support</span>
@@ -389,22 +310,10 @@ function ProductOverview({
 
         <motion.div
           className="product-overview__content"
-          initial={{
-            opacity: 0,
-            x: 30,
-          }}
-          whileInView={{
-            opacity: 1,
-            x: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-          transition={{
-            duration: 0.65,
-            delay: 0.08,
-          }}
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65, delay: 0.08 }}
         >
           <div className="product-details-label">
             <span />
@@ -491,9 +400,7 @@ function ProductSpecifications({
             Technical Information
           </div>
 
-          <h2>
-            Product Specifications
-          </h2>
+          <h2>Product Specifications</h2>
 
           <p>
             Product availability and specifications may vary according
@@ -503,43 +410,25 @@ function ProductSpecifications({
 
         <motion.div
           className="product-specifications__table"
-          initial={{
-            opacity: 0,
-            y: 28,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-          transition={{
-            duration: 0.6,
-          }}
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
         >
           <div className="product-specifications__header">
             <span>Parameter</span>
             <span>Product Information</span>
           </div>
 
-          {displayedSpecifications.map(
-            (specification) => (
-              <div
-                className="product-specifications__row"
-                key={specification.label}
-              >
-                <strong>
-                  {specification.label}
-                </strong>
-
-                <span>
-                  {specification.value}
-                </span>
-              </div>
-            )
-          )}
+          {displayedSpecifications.map((specification) => (
+            <div
+              className="product-specifications__row"
+              key={specification.label}
+            >
+              <strong>{specification.label}</strong>
+              <span>{specification.value}</span>
+            </div>
+          ))}
         </motion.div>
 
         <p className="product-specifications__note">
@@ -552,10 +441,7 @@ function ProductSpecifications({
   );
 }
 
-function AvailableOptions({
-  grades,
-  sizes,
-}) {
+function AvailableOptions({ grades, sizes }) {
   return (
     <section className="product-options">
       <div className="container">
@@ -565,9 +451,7 @@ function AvailableOptions({
             Available Options
           </div>
 
-          <h2>
-            Grades and Product Sizes
-          </h2>
+          <h2>Grades and Product Sizes</h2>
 
           <p>
             Choose from commonly available options or contact our team
@@ -587,25 +471,14 @@ function AvailableOptions({
                 <motion.div
                   className="product-option-card"
                   key={grade}
-                  initial={{
-                    opacity: 0,
-                    y: 20,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  viewport={{
-                    once: true,
-                    amount: 0.4,
-                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
                   transition={{
                     duration: 0.45,
                     delay: index * 0.05,
                   }}
-                  whileHover={{
-                    y: -6,
-                  }}
+                  whileHover={{ y: -6 }}
                 >
                   <ShieldCheck size={20} />
                   <strong>{grade}</strong>
@@ -625,25 +498,14 @@ function AvailableOptions({
                 <motion.div
                   className="product-option-card"
                   key={size}
-                  initial={{
-                    opacity: 0,
-                    y: 20,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  viewport={{
-                    once: true,
-                    amount: 0.4,
-                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
                   transition={{
                     duration: 0.45,
                     delay: index * 0.05,
                   }}
-                  whileHover={{
-                    y: -6,
-                  }}
+                  whileHover={{ y: -6 }}
                 >
                   <Ruler size={20} />
                   <strong>{size}</strong>
@@ -657,9 +519,7 @@ function AvailableOptions({
   );
 }
 
-function ProductApplications({
-  applications,
-}) {
+function ProductApplications({ applications }) {
   const displayedApplications =
     applications.length > 0
       ? applications
@@ -679,9 +539,7 @@ function ProductApplications({
             Product Applications
           </div>
 
-          <h2>
-            Where This Product Performs
-          </h2>
+          <h2>Where This Product Performs</h2>
 
           <p>
             Suitable for a range of construction, engineering,
@@ -690,56 +548,40 @@ function ProductApplications({
         </div>
 
         <div className="product-applications__grid">
-          {displayedApplications.map(
-            (application, index) => (
-              <motion.article
-                key={application}
-                initial={{
-                  opacity: 0,
-                  y: 24,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.25,
-                }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.06,
-                }}
-                whileHover={{
-                  y: -7,
-                }}
-              >
-                <span>
-                  {String(index + 1).padStart(
-                    2,
-                    "0"
-                  )}
-                </span>
+          {displayedApplications.map((application, index) => (
+            <motion.article
+              key={application}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.06,
+              }}
+              whileHover={{ y: -7 }}
+            >
+              <span>
+                {String(index + 1).padStart(2, "0")}
+              </span>
 
-                <div className="product-applications__icon">
-                  {index % 3 === 0 ? (
-                    <Building2 size={23} />
-                  ) : index % 3 === 1 ? (
-                    <HardHat size={23} />
-                  ) : (
-                    <Factory size={23} />
-                  )}
-                </div>
+              <div className="product-applications__icon">
+                {index % 3 === 0 ? (
+                  <Building2 size={23} />
+                ) : index % 3 === 1 ? (
+                  <HardHat size={23} />
+                ) : (
+                  <Factory size={23} />
+                )}
+              </div>
 
-                <h3>{application}</h3>
+              <h3>{application}</h3>
 
-                <p>
-                  Reliable product performance for demanding project
-                  and industrial conditions.
-                </p>
-              </motion.article>
-            )
-          )}
+              <p>
+                Reliable product performance for demanding project
+                and industrial conditions.
+              </p>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>
@@ -756,9 +598,7 @@ function ManufacturingProcess() {
             Supply Process
           </div>
 
-          <h2>
-            From Requirement to Dispatch
-          </h2>
+          <h2>From Requirement to Dispatch</h2>
 
           <p>
             A structured supply workflow supports clear specifications,
@@ -767,42 +607,31 @@ function ManufacturingProcess() {
         </div>
 
         <div className="product-process__timeline">
-          {productProcess.map(
-            (step, index) => {
-              const Icon = step.icon;
+          {productProcess.map((step, index) => {
+            const Icon = step.icon;
 
-              return (
-                <motion.article
-                  className="product-process__step"
-                  key={step.number}
-                  initial={{
-                    opacity: 0,
-                    y: 24,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  viewport={{
-                    once: true,
-                    amount: 0.3,
-                  }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.06,
-                  }}
-                >
-                  <div className="product-process__icon">
-                    <Icon size={22} />
-                  </div>
+            return (
+              <motion.article
+                className="product-process__step"
+                key={step.number}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.06,
+                }}
+              >
+                <div className="product-process__icon">
+                  <Icon size={22} />
+                </div>
 
-                  <span>{step.number}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.description}</p>
-                </motion.article>
-              );
-            }
-          )}
+                <span>{step.number}</span>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -815,30 +644,17 @@ function QualityAssurance() {
       <div className="container product-quality__grid">
         <motion.div
           className="product-quality__content"
-          initial={{
-            opacity: 0,
-            x: -28,
-          }}
-          whileInView={{
-            opacity: 1,
-            x: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
-          transition={{
-            duration: 0.65,
-          }}
+          initial={{ opacity: 0, x: -28 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65 }}
         >
           <div className="product-details-label product-details-label--light">
             <span />
             Quality Assurance
           </div>
 
-          <h2>
-            Verified Before Every Dispatch
-          </h2>
+          <h2>Verified Before Every Dispatch</h2>
 
           <p>
             Our quality process focuses on product identification,
@@ -857,18 +673,9 @@ function QualityAssurance() {
 
         <motion.div
           className="product-quality__media"
-          initial={{
-            opacity: 0,
-            x: 28,
-          }}
-          whileInView={{
-            opacity: 1,
-            x: 0,
-          }}
-          viewport={{
-            once: true,
-            amount: 0.2,
-          }}
+          initial={{ opacity: 0, x: 28 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{
             duration: 0.65,
             delay: 0.08,
@@ -895,45 +702,32 @@ function QualityAssurance() {
       </div>
 
       <div className="container product-quality__checks">
-        {qualityChecks.map(
-          (check, index) => {
-            const Icon = check.icon;
+        {qualityChecks.map((check, index) => {
+          const Icon = check.icon;
 
-            return (
-              <motion.article
-                key={check.title}
-                initial={{
-                  opacity: 0,
-                  y: 20,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.25,
-                }}
-                transition={{
-                  duration: 0.45,
-                  delay: index * 0.05,
-                }}
-              >
-                <Icon size={22} />
-                <h3>{check.title}</h3>
-                <p>{check.description}</p>
-              </motion.article>
-            );
-          }
-        )}
+          return (
+            <motion.article
+              key={check.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{
+                duration: 0.45,
+                delay: index * 0.05,
+              }}
+            >
+              <Icon size={22} />
+              <h3>{check.title}</h3>
+              <p>{check.description}</p>
+            </motion.article>
+          );
+        })}
       </div>
     </section>
   );
 }
 
-function RelatedProducts({
-  products,
-}) {
+function RelatedProducts({ products }) {
   if (products.length === 0) {
     return null;
   }
@@ -948,9 +742,7 @@ function RelatedProducts({
               Related Products
             </div>
 
-            <h2>
-              Explore More Steel Solutions
-            </h2>
+            <h2>Explore More Steel Solutions</h2>
 
             <p>
               Browse other products available for construction,
@@ -968,74 +760,52 @@ function RelatedProducts({
         </div>
 
         <div className="related-products__grid">
-          {products.map(
-            (product, index) => (
-              <motion.article
-                className="related-product-card"
-                key={product.slug}
-                initial={{
-                  opacity: 0,
-                  y: 24,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                  amount: 0.2,
-                }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.07,
-                }}
-                whileHover={{
-                  y: -8,
-                }}
+          {products.map((product, index) => (
+            <motion.article
+              className="related-product-card"
+              key={product.slug}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.07,
+              }}
+              whileHover={{ y: -8 }}
+            >
+              <Link
+                to={`/products/${product.slug}`}
+                className="related-product-card__image"
               >
-                <Link
-                  to={`/products/${product.slug}`}
-                  className="related-product-card__image"
-                >
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                  />
+                <img
+                  src={product.image}
+                  alt={product.name}
+                />
+                <div />
+                <span>
+                  <ArrowUpRight size={19} />
+                </span>
+              </Link>
 
-                  <div />
+              <div className="related-product-card__content">
+                <small>{product.category}</small>
+                <h3>{product.name}</h3>
+                <p>{product.shortDescription}</p>
 
-                  <span>
-                    <ArrowUpRight size={19} />
-                  </span>
+                <Link to={`/products/${product.slug}`}>
+                  View Product
+                  <ArrowRight size={15} />
                 </Link>
-
-                <div className="related-product-card__content">
-                  <small>{product.category}</small>
-                  <h3>{product.name}</h3>
-
-                  <p>
-                    {product.shortDescription}
-                  </p>
-
-                  <Link
-                    to={`/products/${product.slug}`}
-                  >
-                    View Product
-                    <ArrowRight size={15} />
-                  </Link>
-                </div>
-              </motion.article>
-            )
-          )}
+              </div>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-function ProductCTA({
-  product,
-}) {
+function ProductCTA({ product }) {
   return (
     <section className="product-details-cta">
       <div className="container product-details-cta__container">
@@ -1080,12 +850,10 @@ function ProductNotFound() {
     <main className="product-not-found">
       <div className="container product-not-found__container">
         <span>404</span>
-
         <h1>Product Not Found</h1>
 
         <p>
-          The requested product does not exist or may have been
-          removed.
+          The requested product does not exist or may have been removed.
         </p>
 
         <Link

@@ -36,142 +36,419 @@ const heroStats = [
 function Hero() {
   const heroRef = useRef(null);
 
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end end"],
-  });
+  const { scrollYProgress } =
+    useScroll({
+      target: heroRef,
+
+      offset: [
+        "start start",
+        "end end",
+      ],
+    });
 
   /* =====================================================
-     LEFT / RIGHT WAREHOUSE SPLIT
+     SCROLL TIMELINE
+
+     0.00 - 0.20
+     Initial warehouse hero remains visible
+
+     0.20 - 0.55
+     Warehouse splits completely
+
+     0.45 - 0.70
+     Welcome screen appears
+
+     0.70 - 1.00
+     Welcome screen remains completely visible
+
+     The next Home section only appears after the sticky
+     hero has completed its scroll distance.
+  ===================================================== */
+
+  /* =====================================================
+     WAREHOUSE SPLIT
   ===================================================== */
 
   const leftX = useTransform(
     scrollYProgress,
-    [0, 0.24, 0.55, 1],
-    ["0%", "0%", "-108%", "-108%"]
+
+    [
+      0,
+      0.2,
+      0.55,
+      0.72,
+      1,
+    ],
+
+    [
+      "0%",
+      "0%",
+      "-115%",
+      "-115%",
+      "-115%",
+    ]
   );
 
   const rightX = useTransform(
     scrollYProgress,
-    [0, 0.24, 0.55, 1],
-    ["0%", "0%", "108%", "108%"]
+
+    [
+      0,
+      0.2,
+      0.55,
+      0.72,
+      1,
+    ],
+
+    [
+      "0%",
+      "0%",
+      "115%",
+      "115%",
+      "115%",
+    ]
   );
 
   const leftRotate = useTransform(
     scrollYProgress,
-    [0, 0.24, 0.55, 1],
-    [0, 0, -2, -2]
+
+    [
+      0,
+      0.2,
+      0.55,
+      1,
+    ],
+
+    [
+      0,
+      0,
+      -2.25,
+      -2.25,
+    ]
   );
 
   const rightRotate = useTransform(
     scrollYProgress,
-    [0, 0.24, 0.55, 1],
-    [0, 0, 2, 2]
+
+    [
+      0,
+      0.2,
+      0.55,
+      1,
+    ],
+
+    [
+      0,
+      0,
+      2.25,
+      2.25,
+    ]
   );
 
   const splitScale = useTransform(
     scrollYProgress,
-    [0, 0.24, 0.55, 1],
-    [1, 1, 1.06, 1.06]
+
+    [
+      0,
+      0.2,
+      0.55,
+      1,
+    ],
+
+    [
+      1,
+      1,
+      1.045,
+      1.045,
+    ]
   );
 
   /* =====================================================
      ORIGINAL HERO CONTENT
   ===================================================== */
 
-  const heroContentOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.28, 0.46, 1],
-    [1, 1, 0, 0]
-  );
+  const heroContentOpacity =
+    useTransform(
+      scrollYProgress,
 
-  const heroContentY = useTransform(
-    scrollYProgress,
-    [0, 0.28, 0.46, 1],
-    [0, 0, -55, -55]
-  );
+      [
+        0,
+        0.22,
+        0.43,
+        1,
+      ],
 
-  const statsOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.27, 0.44, 1],
-    [1, 1, 0, 0]
-  );
+      [
+        1,
+        1,
+        0,
+        0,
+      ]
+    );
+
+  const heroContentY =
+    useTransform(
+      scrollYProgress,
+
+      [
+        0,
+        0.22,
+        0.43,
+        1,
+      ],
+
+      [
+        0,
+        0,
+        -55,
+        -55,
+      ]
+    );
+
+  const statsOpacity =
+    useTransform(
+      scrollYProgress,
+
+      [
+        0,
+        0.22,
+        0.42,
+        1,
+      ],
+
+      [
+        1,
+        1,
+        0,
+        0,
+      ]
+    );
 
   /* =====================================================
-     ORIGINAL HERO OVERLAY
+     INITIAL HERO OVERLAYS
   ===================================================== */
 
-  const overlayOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.53, 1],
-    [1, 1, 0, 0]
-  );
+  const overlayOpacity =
+    useTransform(
+      scrollYProgress,
 
-  const accentOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.51, 1],
-    [1, 1, 0, 0]
-  );
+      [
+        0,
+        0.25,
+        0.5,
+        1,
+      ],
+
+      [
+        1,
+        1,
+        0,
+        0,
+      ]
+    );
+
+  const accentOpacity =
+    useTransform(
+      scrollYProgress,
+
+      [
+        0,
+        0.25,
+        0.5,
+        1,
+      ],
+
+      [
+        1,
+        1,
+        0,
+        0,
+      ]
+    );
 
   /* =====================================================
-     WELCOME BACKGROUND
-
-     IMPORTANT:
-     We only animate opacity.
-     NO scaling of the full background.
+     WELCOME SCREEN
   ===================================================== */
 
   const welcomeBackgroundOpacity =
     useTransform(
       scrollYProgress,
-      [0, 0.35, 0.52, 1],
-      [0, 0, 1, 1]
-    );
 
-  /* =====================================================
-     WELCOME CONTENT
-  ===================================================== */
+      [
+        0,
+        0.4,
+        0.58,
+        1,
+      ],
+
+      [
+        0,
+        0,
+        1,
+        1,
+      ]
+    );
 
   const welcomeContentOpacity =
     useTransform(
       scrollYProgress,
-      [0, 0.43, 0.59, 0.64, 1],
-      [0, 0, 0.78, 1, 1]
+
+      [
+        0,
+        0.48,
+        0.63,
+        0.7,
+        1,
+      ],
+
+      [
+        0,
+        0,
+        0.78,
+        1,
+        1,
+      ]
     );
 
   const welcomeContentY =
     useTransform(
       scrollYProgress,
-      [0.43, 0.62, 1],
-      [60, 0, 0]
+
+      [
+        0.48,
+        0.7,
+        1,
+      ],
+
+      [
+        52,
+        0,
+        0,
+      ]
     );
 
   const welcomeContentScale =
     useTransform(
       scrollYProgress,
-      [0.43, 0.62, 1],
-      [0.94, 1, 1]
+
+      [
+        0.48,
+        0.7,
+        1,
+      ],
+
+      [
+        0.94,
+        1,
+        1,
+      ]
     );
 
   const welcomeGlowOpacity =
     useTransform(
       scrollYProgress,
-      [0.42, 0.62, 1],
-      [0, 1, 1]
+
+      [
+        0.42,
+        0.65,
+        1,
+      ],
+
+      [
+        0,
+        1,
+        1,
+      ]
     );
 
   const welcomeLineWidth =
     useTransform(
       scrollYProgress,
-      [0.52, 0.67, 1],
-      ["0%", "100%", "100%"]
+
+      [
+        0.56,
+        0.73,
+        1,
+      ],
+
+      [
+        "0%",
+        "100%",
+        "100%",
+      ]
     );
+
+  /* =====================================================
+     SCROLL HINT
+  ===================================================== */
 
   const scrollHintOpacity =
     useTransform(
       scrollYProgress,
-      [0, 0.25, 0.4],
-      [1, 1, 0]
+
+      [
+        0,
+        0.22,
+        0.38,
+      ],
+
+      [
+        1,
+        1,
+        0,
+      ]
+    );
+
+  /* =====================================================
+     CLICK / TOUCH FIX
+
+     Before the Welcome screen:
+     original hero accepts clicks.
+
+     After Welcome becomes visible:
+     original hero stops receiving pointer events
+     and Welcome screen receives them.
+
+     This prevents invisible hero elements from
+     blocking Discover Our Story / Explore Products.
+  ===================================================== */
+
+  const originalHeroPointerEvents =
+    useTransform(
+      scrollYProgress,
+
+      [
+        0,
+        0.49,
+        0.5,
+        1,
+      ],
+
+      [
+        "auto",
+        "auto",
+        "none",
+        "none",
+      ]
+    );
+
+  const welcomePointerEvents =
+    useTransform(
+      scrollYProgress,
+
+      [
+        0,
+        0.54,
+        0.55,
+        1,
+      ],
+
+      [
+        "none",
+        "none",
+        "auto",
+        "auto",
+      ]
     );
 
   return (
@@ -182,7 +459,7 @@ function Hero() {
       <div className="home-hero-break__sticky">
 
         {/* =================================================
-            WELCOME FULL SCREEN BACKGROUND
+            WELCOME SCREEN
         ================================================= */}
 
         <motion.div
@@ -190,6 +467,9 @@ function Hero() {
           style={{
             opacity:
               welcomeBackgroundOpacity,
+
+            pointerEvents:
+              welcomePointerEvents,
           }}
         >
           <motion.div
@@ -230,12 +510,18 @@ function Hero() {
             </h2>
 
             <p>
-              Built on reliability, quality and
-              long-term customer relationships.
-              Supplying dependable steel solutions
-              for construction, infrastructure,
+              Built on reliability,
+              quality and long-term
+              customer relationships.
+              Supplying dependable steel
+              solutions for construction,
+              infrastructure,
               engineering and industry.
             </p>
+
+            {/* =============================================
+                WORKING WELCOME BUTTONS
+            ============================================= */}
 
             <div className="hero-welcome__actions">
               <Link
@@ -244,7 +530,9 @@ function Hero() {
               >
                 Discover Our Story
 
-                <ArrowRight size={18} />
+                <ArrowRight
+                  size={18}
+                />
               </Link>
 
               <Link
@@ -253,7 +541,9 @@ function Hero() {
               >
                 Explore Products
 
-                <ArrowUpRight size={18} />
+                <ArrowUpRight
+                  size={18}
+                />
               </Link>
             </div>
 
@@ -269,7 +559,8 @@ function Hero() {
             <div className="hero-welcome__signature">
               <span />
 
-              Reliable Steel. Dependable Supply.
+              Reliable Steel.
+              Dependable Supply.
 
               <span />
             </div>
@@ -277,15 +568,23 @@ function Hero() {
         </motion.div>
 
         {/* =================================================
-            LEFT IMAGE PANEL
+            LEFT WAREHOUSE HALF
         ================================================= */}
 
         <motion.div
           className="home-hero-split home-hero-split--left"
           style={{
-            x: leftX,
-            rotate: leftRotate,
-            scale: splitScale,
+            x:
+              leftX,
+
+            rotate:
+              leftRotate,
+
+            scale:
+              splitScale,
+
+            pointerEvents:
+              "none",
           }}
         >
           <img
@@ -296,15 +595,23 @@ function Hero() {
         </motion.div>
 
         {/* =================================================
-            RIGHT IMAGE PANEL
+            RIGHT WAREHOUSE HALF
         ================================================= */}
 
         <motion.div
           className="home-hero-split home-hero-split--right"
           style={{
-            x: rightX,
-            rotate: rightRotate,
-            scale: splitScale,
+            x:
+              rightX,
+
+            rotate:
+              rightRotate,
+
+            scale:
+              splitScale,
+
+            pointerEvents:
+              "none",
           }}
         >
           <img
@@ -315,7 +622,7 @@ function Hero() {
         </motion.div>
 
         {/* =================================================
-            ORIGINAL HERO OVERLAYS
+            OVERLAY
         ================================================= */}
 
         <motion.div
@@ -323,6 +630,9 @@ function Hero() {
           style={{
             opacity:
               overlayOpacity,
+
+            pointerEvents:
+              "none",
           }}
         />
 
@@ -331,6 +641,9 @@ function Hero() {
           style={{
             opacity:
               accentOpacity,
+
+            pointerEvents:
+              "none",
           }}
         />
 
@@ -338,7 +651,13 @@ function Hero() {
             ORIGINAL HERO
         ================================================= */}
 
-        <div className="container home-hero__container">
+        <motion.div
+          className="container home-hero__container"
+          style={{
+            pointerEvents:
+              originalHeroPointerEvents,
+          }}
+        >
           <motion.div
             className="home-hero__content"
             style={{
@@ -350,14 +669,18 @@ function Hero() {
             }}
             initial={{
               opacity: 0,
+
               y: 24,
             }}
             animate={{
               opacity: 1,
+
               y: 0,
             }}
             transition={{
-              duration: 0.75,
+              duration:
+                0.75,
+
               ease: [
                 0.22,
                 1,
@@ -369,7 +692,8 @@ function Hero() {
             <div className="home-kicker home-kicker--hero">
               <span />
 
-              Since 1999 · Reliable Steel Supply
+              Since 1999 ·
+              Reliable Steel Supply
             </div>
 
             <h1>
@@ -381,10 +705,12 @@ function Hero() {
             </h1>
 
             <p>
-              Your trusted source for premium steel
-              products, dependable stock,
+              Your trusted source for
+              premium steel products,
+              dependable stock,
               transparent service and
-              project-focused supply support.
+              project-focused supply
+              support.
             </p>
 
             <div className="home-hero__actions">
@@ -394,7 +720,9 @@ function Hero() {
               >
                 Explore Products
 
-                <ArrowRight size={18} />
+                <ArrowRight
+                  size={18}
+                />
               </Link>
 
               <Link
@@ -403,14 +731,16 @@ function Hero() {
               >
                 Request Enquiry
 
-                <ArrowUpRight size={18} />
+                <ArrowUpRight
+                  size={18}
+                />
               </Link>
             </div>
           </motion.div>
 
-          {/* ===============================================
-              STATISTICS
-          ================================================ */}
+          {/* =================================================
+              HERO STATISTICS
+          ================================================= */}
 
           <motion.div
             className="home-hero__stats"
@@ -423,20 +753,26 @@ function Hero() {
               (stat) => (
                 <div
                   className="home-hero-stat"
-                  key={stat.label}
+                  key={
+                    stat.label
+                  }
                 >
                   <strong>
-                    {stat.value}
+                    {
+                      stat.value
+                    }
                   </strong>
 
                   <span>
-                    {stat.label}
+                    {
+                      stat.label
+                    }
                   </span>
                 </div>
               )
             )}
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* =================================================
             SCROLL HINT
@@ -447,6 +783,9 @@ function Hero() {
           style={{
             opacity:
               scrollHintOpacity,
+
+            pointerEvents:
+              "none",
           }}
         >
           <span />
