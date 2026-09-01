@@ -129,7 +129,7 @@ function Footer() {
               <span>
                 Godavari Iron &amp; Steel,
                 <br />
-                Rajahmundry, Andhra Pradesh,
+                N-19, 1st Stage Main Road, TVS Cross, Peenya, Bengaluru, Karnataka 560058
                 India
               </span>
             </li>
